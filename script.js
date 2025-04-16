@@ -5,6 +5,8 @@ let score = 0;
 let selectedDomain = '';
 let selectedTheme = '';
 let filteredQuestions = [];
+let currentQuestionNumber = 0;
+const MAX_QUESTIONS = 10; // Limite à 10 questions
 
 // Charger les questions
 function loadQuestions() {
@@ -13,6 +15,10 @@ function loadQuestions() {
     .then(data => {
       questionsData = data;
       initDomaines();
+      // Ajouter le logo
+      document.getElementById('logo-container').innerHTML = `
+        <img src="logo.png" alt="Logo Quiz Pro" class="logo">
+      `;
     })
     .catch(error => {
       console.error("Erreur lors du chargement des questions:", error);
@@ -20,42 +26,7 @@ function loadQuestions() {
     });
 }
 
-// Initialiser les sélecteurs de domaines
-function initDomaines() {
-  const domaineSelect = document.getElementById('domaine-select');
-  domaineSelect.innerHTML = '<option value="">Sélectionnez un domaine</option>';
-  
-  const domaines = [...new Set(questionsData.map(q => q.Domaines))];
-  
-  domaines.forEach(domaine => {
-    const option = document.createElement('option');
-    option.value = domaine;
-    option.textContent = domaine;
-    domaineSelect.appendChild(option);
-  });
-
-  domaineSelect.addEventListener('change', updateThemes);
-}
-
-// Mettre à jour les thèmes
-function updateThemes() {
-  selectedDomain = this.value;
-  const themeSelect = document.getElementById('theme-select');
-  themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
-
-  const themes = [...new Set(
-    questionsData
-      .filter(q => q.Domaines === selectedDomain)
-      .map(q => q["Thémes"])
-  )];
-  
-  themes.forEach(theme => {
-    const option = document.createElement('option');
-    option.value = theme;
-    option.textContent = theme;
-    themeSelect.appendChild(option);
-  });
-}
+// ... (initDomaines() et updateThemes() restent identiques)
 
 // Démarrer le quiz
 function startQuiz() {
@@ -66,11 +37,15 @@ function startQuiz() {
     return;
   }
 
-  // Filtrer une seule fois au démarrage
+  // Réinitialiser les variables
+  score = 0;
+  currentQuestionNumber = 0;
+  
+  // Filtrer et mélanger les questions
   filteredQuestions = questionsData.filter(q => 
     q.Domaines === selectedDomain && 
     q["Thémes"] === selectedTheme
-  );
+  ).sort(() => 0.5 - Math.random()).slice(0, MAX_QUESTIONS);
 
   if (filteredQuestions.length === 0) {
     alert("Aucune question disponible pour cette combinaison.");
@@ -79,29 +54,28 @@ function startQuiz() {
 
   document.getElementById('config').classList.add('hidden');
   document.getElementById('quiz-interface').classList.remove('hidden');
-  
+  updateScoreDisplay();
   loadNextQuestion();
 }
 
 // Charger la question suivante
 function loadNextQuestion() {
-  if (filteredQuestions.length === 0) {
-    alert(`Quiz terminé ! Score final : ${score}`);
+  if (currentQuestionNumber >= filteredQuestions.length) {
+    showFinalResults();
     return;
   }
 
-  // Sélection aléatoire et suppression pour éviter les répétitions
-  const randomIndex = Math.floor(Math.random() * filteredQuestions.length);
-  currentQuestion = filteredQuestions.splice(randomIndex, 1)[0];
+  currentQuestion = filteredQuestions[currentQuestionNumber];
+  currentQuestionNumber++;
   
   displayQuestion();
+  updateProgressBar();
 }
 
 // Afficher la question
 function displayQuestion() {
   const quizContainer = document.getElementById('question-container');
-  quizContainer.innerHTML = ''; // Nettoyer le contenu précédent
-
+  
   const propositions = {
     A: currentQuestion["Proposition (A)"] || "",
     B: currentQuestion["Proposition (B)"] || "",
@@ -112,12 +86,16 @@ function displayQuestion() {
   const validPropositions = Object.entries(propositions)
     .filter(([_, value]) => value.trim() !== "");
 
-  const questionHTML = `
+  quizContainer.innerHTML = `
+    <div class="progress-container">
+      <div class="progress-bar">Question ${currentQuestionNumber}/${filteredQuestions.length}</div>
+      <div class="score-display">Score: ${score}</div>
+    </div>
+    
     <div class="question-header">
       <span class="badge domaine">${currentQuestion.Domaines}</span>
       <span class="badge theme">${currentQuestion["Thémes"]}</span>
       <span class="badge niveau">Niveau ${currentQuestion["Niveau de question"]}</span>
-      <span class="badge id">${currentQuestion["Questions Num"]}</span>
     </div>
 
     <h3>${currentQuestion["Enoncé"]}</h3>
@@ -130,33 +108,70 @@ function displayQuestion() {
       `).join('')}
     </div>
   `;
-
-  quizContainer.innerHTML = questionHTML;
 }
 
 // Vérifier la réponse
 function checkAnswer(selectedKey) {
   const isCorrect = selectedKey === currentQuestion["Bonne réponse"];
-  const feedback = document.createElement('div');
+  const points = currentQuestion["Niveau de question"]; // Points = niveau de la question
   
+  if (isCorrect) {
+    score += points;
+    updateScoreDisplay();
+  }
+
+  const correctAnswer = currentQuestion["Bonne réponse"];
+  const correctText = currentQuestion[`Proposition (${correctAnswer})`];
+  
+  const feedback = document.createElement('div');
   feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
   feedback.innerHTML = `
     <h4>${isCorrect ? '✅ Correct !' : '❌ Faux'}</h4>
-    ${currentQuestion.commentaires ? `<p><strong>Commentaire :</strong> ${currentQuestion.commentaires}</p>` : ''}
+    ${!isCorrect ? `
+      <p><strong>La bonne réponse était :</strong> 
+      <span class="correct-answer">${correctAnswer}) ${correctText}</span></p>
+    ` : ''}
+    ${currentQuestion.commentaires ? `<p><strong>Explication :</strong> ${currentQuestion.commentaires}</p>` : ''}
+    <p>${isCorrect ? `+${points} points` : '0 point'}</p>
     <button onclick="loadNextQuestion()" class="next-btn">
-      ${filteredQuestions.length > 0 ? 'Question suivante' : 'Voir le score final'}
+      ${currentQuestionNumber < filteredQuestions.length ? 'Question suivante' : 'Voir les résultats'}
     </button>
   `;
 
-  if (isCorrect) score++;
-  
   document.getElementById('question-container').appendChild(feedback);
   document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+}
+
+// Afficher les résultats finaux
+function showFinalResults() {
+  document.getElementById('quiz-interface').innerHTML = `
+    <div class="results-container">
+      <h2>Résultats du Quiz</h2>
+      <div class="final-score">Score final: ${score}</div>
+      <div class="max-score">Score maximum possible: ${filteredQuestions.reduce((sum, q) => sum + q["Niveau de question"], 0)}</div>
+      <button onclick="location.reload()" class="restart-btn">Recommencer</button>
+    </div>
+  `;
+}
+
+// Mettre à jour la barre de progression
+function updateProgressBar() {
+  const progressBar = document.querySelector('.progress-bar');
+  if (progressBar) {
+    progressBar.textContent = `Question ${currentQuestionNumber}/${filteredQuestions.length}`;
+  }
+}
+
+// Mettre à jour l'affichage du score
+function updateScoreDisplay() {
+  const scoreDisplay = document.querySelector('.score-display');
+  if (scoreDisplay) {
+    scoreDisplay.textContent = `Score: ${score}`;
+  }
 }
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
   loadQuestions();
-  
   document.getElementById('start-btn').addEventListener('click', startQuiz);
 });
