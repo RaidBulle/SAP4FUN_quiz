@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SAP4FUN_Quiz</title>
-    <link rel="stylesheet" href="style.css">
+  <title>SAP4FUN Quiz</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <h1>SAP4FUN_Quiz</h1>
-        <div id="quiz-container"></div>
-        <button id="start-btn">Commencer</button>
+  <div id="config">
+    <h1>Quiz Professionnel</h1>
+    
+    <div class="select-group">
+      <label for="domaine-select">Domaine :</label>
+      <select id="domaine-select">
+        <option value="">Sélectionnez un domaine</option>
+      </select>
     </div>
-    <script src="script.js"></script>
+    
+    <div class="select-group">
+      <label for="theme-select">Thème :</label>
+      <select id="theme-select">
+        <option value="">Sélectionnez d'abord un domaine</option>
+      </select>
+    </div>
+    
+    <button id="start-btn">Commencer le quiz</button>
+  </div>
+  
+  <div id="quiz-interface" class="hidden">
+    <div id="question-container"></div>
+  </div>
+  
+  <script src="script.js"></script>
 </body>
 </html>
