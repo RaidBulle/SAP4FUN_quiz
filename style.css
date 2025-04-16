@@ -1,18 +1,15 @@
 /* Logo */
-.logo {
-    max-height: 150px;
-    height: 150px; /* Hauteur fixe pour l'élément */
-    width: 300px; /* Ajustez cette valeur selon les proportions de votre logo */
-    margin-bottom: 50px;
-    background-image: url('https://raw.githubusercontent.com/RaidBulle/SAP4FUN_quiz/Logo_SAP4Fun.png');
-    background-size: contain; /* Pour que l'image s'adapte à la taille de l'élément */
-    background-repeat: no-repeat; /* Pour éviter que l'image se répète */
-    background-position: center; /* Pour centrer l'image */
-
-       /* Positionnement en haut à droite */
-       position: absolute;
-       top: 20px; /* Ajustez cette valeur selon vos besoins */
-       right: 20px; /* Ajustez cette valeur selon vos besoins */
+.sap4fun-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 150px; /* Ajustez selon les dimensions de votre logo */
+    height: 150px;
+    background-image: url(RaidBulle/SAP4FUN_quiz/Logo_SAP4Fun.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 100;
 }
   
   /* Barre de progression et score */
