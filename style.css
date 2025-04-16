@@ -1,0 +1,3 @@
+body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+#quiz-container { margin: 20px auto; max-width: 600px; }
