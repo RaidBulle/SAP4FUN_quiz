@@ -7,13 +7,18 @@ let selectedTheme = '';
 
 // Charger les questions depuis un fichier JSON (à implémenter)
 // Cette fonction serait utilisée pour charger les données initiales
-async function loadQuestions() {
-  // À implémenter selon la source de données
-  // Exemple : fetch('/questions.json').then(response => response.json())
-  //          .then(data => {
-  //              questionsData = data;
-  //              initDomaines();
-  //          });
+function loadQuestions() {
+    fetch('questions.json')
+    .then(response => response.json())
+    .then(data => {
+      questionsData = data;
+      initDomaines();
+    })
+    .catch(error => {
+      console.error("Erreur lors du chargement des questions:", error);
+      // Fallback avec des données de test en cas d'erreur
+      initTestData();
+    });
 }
 
 // Initialiser les sélecteurs de domaines
@@ -126,6 +131,8 @@ function checkAnswer(selectedKey) {
   
   document.getElementById('question-container').appendChild(feedback);
   document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+
+  loadNextQuestion();
 }
 
 // Démarrer le quiz
@@ -138,8 +145,9 @@ function startQuiz() {
 
 // Initialisation des événements
 document.addEventListener('DOMContentLoaded', () => {
-  // Charger les questions et initialiser l'interface
-  loadQuestions();
+    // Charger les questions et initialiser l'interface
+    loadQuestions();
+}
   
   // Événement pour le bouton de démarrage
   document.getElementById('start-btn').addEventListener('click', () => {
