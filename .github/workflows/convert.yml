@@ -1,4 +1,4 @@
-name: Convert Excel to JSON
+name: Convert
 
 on:
   push:
