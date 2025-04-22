@@ -3,7 +3,7 @@ let questionsData = [];
 let currentQuestion = {};
 let score = 0;
 let selectedDomain = '';
-let selectedTheme = '';
+let selectedThème = '';
 let filteredQuestions = [];
 let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
@@ -39,36 +39,36 @@ function initDomaines() {
     
     domaineSelect.addEventListener('change', function() {
         selectedDomain = this.value;
-        updateThemes();
+        updateThèmes();
     });
 }
 
 // Mettre à jour les thèmes
-function updateThemes() {
-    const themeSelect = document.getElementById('theme-select');
-    themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
+function updateThèmes() {
+    const thèmeSelect = document.getElementById('thème-select');
+    thèmeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
     
     if (!selectedDomain) return;
     
-    const themes = [...new Set(
+    const thèmes = [...new Set(
         questionsData
             .filter(q => q.Domaines === selectedDomain)
-            .map(q => q["Thémes"])
+            .map(q => q["Thèmes"])
     )];
     
-    themes.forEach(theme => {
+    thèmes.forEach(thème => {
         const option = document.createElement('option');
-        option.value = theme;
-        option.textContent = theme;
-        themeSelect.appendChild(option);
+        option.value = thème;
+        option.textContent = thème;
+        thèmeSelect.appendChild(option);
     });
 }
 
 // Démarrer le quiz
 function startQuiz() {
-    selectedTheme = document.getElementById('theme-select').value;
+    selectedThème = document.getElementById('thème-select').value;
     
-    if (!selectedDomain || !selectedTheme) {
+    if (!selectedDomain || !selectedThème) {
         alert("Veuillez sélectionner un domaine et un thème !");
         return;
     }
@@ -77,7 +77,7 @@ function startQuiz() {
     currentQuestionNumber = 0;
     
     filteredQuestions = questionsData
-        .filter(q => q.Domaines === selectedDomain && q["Thémes"] === selectedTheme)
+        .filter(q => q.Domaines === selectedDomain && q["Thèmes"] === selectedThème)
         .sort(() => 0.5 - Math.random())
         .slice(0, MAX_QUESTIONS);
 
