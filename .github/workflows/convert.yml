@@ -21,8 +21,8 @@ jobs:
       - name: 📦 Installer les bibliothèques
         run: pip install pandas openpyxl
 
-      - name: 🔄 Lancer la conversion
-        run: python convert.py
+        - name: 🔄 Lancer la conversion Excel → JSON
+        run: python path/to/convert.py
 
       - name: 💾 Commit des fichiers JSON générés
         run: |
