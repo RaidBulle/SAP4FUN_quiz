@@ -1,35 +1,27 @@
-name: Convert Excel to JSON
+import pandas as pd
+import os
 
-on:
-  push:
-    paths:
-      - '**.xlsx'           # Lance l’action si un fichier .xlsx est modifié ou ajouté
-      - 'convert_excel_to_json.py'
+def sanitize_filename(name):
+    return "".join(c if c.isalnum() or c in "._-" else "_" for c in name)
 
-jobs:
-  convert:
-    runs-on: ubuntu-latest
+# Parcours récursif de tous les fichiers .xlsx
+for root, dirs, files in os.walk("."):
+    for file in files:
+        if file.endswith(".xlsx") and not file.startswith("~$"):  # Ignore fichiers temporaires Excel
+            excel_path = os.path.join(root, file)
+            print(f"🔍 Traitement du fichier : {excel_path}")
 
-    steps:
-      - name: 📥 Cloner le dépôt
-        uses: actions/checkout@v3
+            # Charger toutes les feuilles
+            xls = pd.ExcelFile(excel_path, engine="openpyxl")
+            for sheet_name in xls.sheet_names:
+                df = pd.read_excel(xls, sheet_name=sheet_name)
 
-      - name: 🐍 Installer Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+                # Générer un nom de fichier JSON propre
+                base_name = os.path.splitext(file)[0]
+                sanitized_sheet = sanitize_filename(sheet_name)
+                json_name = f"{base_name}__{sanitized_sheet}.json"
+                json_path = os.path.join(root, json_name)
 
-      - name: 📦 Installer les bibliothèques Python
-        run: pip install pandas openpyxl
-
-      - name: 🔄 Lancer la conversion Excel → JSON
-        run: python convert_excel_to_json.py
-
-      - name: 💾 Commit automatique des JSON
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add '**/*.json'
-          git commit -m "🤖 Auto: Conversion Excel → JSON"
-          git push
-        continue-on-error: true  # évite l’échec si aucun changement à commit
+                # Écrire le fichier JSON
+                df.to_json(json_path, orient="records", indent=2, force_ascii=False)
+                print(f"✅ {sheet_name} → {json_path}")
