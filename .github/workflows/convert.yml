@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '**.xlsx'
+      - 'convert.py'
 
 jobs:
   convert:
