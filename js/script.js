@@ -210,5 +210,3 @@ document.addEventListener('DOMContentLoaded', () => {
     loadQuestions();
     document.getElementById('start-btn').addEventListener('click', startQuiz);
 });
-
-La question ne s'affiche pas , j'ai le message : "undefined"
