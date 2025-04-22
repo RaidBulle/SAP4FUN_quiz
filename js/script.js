@@ -131,7 +131,7 @@ function displayQuestion() {
             <span class="badge niveau">Niveau ${currentQuestion["Niveau de question"]}</span>
         </div>
 
-        <h3>${currentQuestion["Enoncé"]}</h3>
+        <h3>${currentQuestion["Question"]}</h3>
 
         <div class="options">
             ${validPropositions.map(([key, value]) => `
