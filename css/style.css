@@ -15,18 +15,14 @@
   }
   
   /* Logo */
-  .sap4fun-logo {
-    position: absolute;
+  #sap4fun-logo {
+    position: fixed;
     top: 20px;
     right: 20px;
-    width: 150px;
-    height: 150px;
-    background-image: url('RaidBulle/SAP4FUN_quiz/images/Logo_SAP4Fun.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 100;
-  }
+    height: 80px;
+    z-index: 1000;
+}
+
   
   /* Configuration */
   #config {
