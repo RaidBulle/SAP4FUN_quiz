@@ -1,0 +1,215 @@
+Domaines;Questions N°;Thèmes;Niveau de question;Question;Proposition (D);Proposition (C);Proposition (B);Proposition (A);Bonne réponse;commentaires
+Logistique amont;UPL001;Achat Direct;1;Dans l'affichage des résultats de la transaction ME3M (document d'achat par article), que signifie le triangle rouge dans une colonne ?;;;Il y a un tri;Il y a un filtre;B;
+Logistique amont;UPL002;Achat Direct;1;Dans l'affichage des résultats de la transaction ME3M (document d'achat par article), que signifie le triangle noir dans une colonne ?;;;Il y a un tri;Il y a un filtre;A;
+Logistique amont;UPL007;Achat Direct;2;Quelle transaction utilise t-on pour gérer un Répertoire de Source d'Approvisionnement ?;;;ME03;ME01;A;
+Logistique amont;UPL008;Achat Direct;2;Quelle transaction utilise t-on pour générer un Répertoire de Source d'Approvisionnement  ?;;;ME05;ME01;B;
+Logistique amont;UPL013;Achat Direct;4;Est-il possible de passer une commande d'achat sans utiliser le RSA?;;;Faux;Vrai;A; (mais le RSA est obligatoire dans le core model)
+Logistique amont;UPL015;Commandes d'achat;1;Dans la transaction ME21N, est-il possible de créer une commande à partir d'une DA ?;;;Faux;Vrai;A;
+Logistique amont;UPL016;Commandes d'achat;1;Dans la transaction ME21N, est-il possible de créer une commande à partir d'une commande d'achat ?;;;Faux;Vrai;A;
+Logistique amont;UPL017;Commandes d'achat;1;Dans la transaction ME21N, est-il possible de créer une commande à partir d'un contrat ?;;;Faux;Vrai;A;
+Logistique amont;UPL018;Commandes d'achat;1;"Est -il possible de passer une commande d'achat à partir de l'écran ""MD04"" Etat dynamique des stocks ?";;;Faux;Vrai;A;
+Logistique amont;UPL019;Commandes d'achat;1;"Dans la transaction ME22N, dans le détail poste, onglet ""Livraison"". Est-il possible de modifier les relances ?";;;Faux;Vrai;A;
+Logistique amont;UPL020;Commandes d'achat;1;"Dans la transaction ME22N, dans le détail poste, onglet ""Livraison"". Est-il possible de modifier les tolérances de livraison ?";;;Faux;Vrai;A;
+Logistique amont;UPL021;Commandes d'achat;1;"Dans la transaction ME22N, dans le détail poste, onglet ""Livraisons"". Si on coche ""livraison finale"", le poste de commande est soldé. Peut-on encore réceptionner des factures fournisseurs?";;;Faux;Vrai;A;
+Logistique amont;UPL022;Commandes d'achat;1;Est-ce que je peux supprimer un poste de commande sur lequel une réception a été faite ?;;;Faux;Vrai;B;
+Logistique amont;UPL023;Commandes d'achat;1;"Dans la transaction ME22N, dans le détail poste, onglet ""Adresse de livraisons"". Est-il possible de modifier l'adresse manuellement ?";;;Faux;Vrai;A;
+Logistique amont;UPL024;Commandes d'achat;1;Lorsque je supprime un poste dans une commande d'achat, la DA associée n'est pas réactivée;;;Faux;Vrai;B;
+Logistique amont;UPL025;Commandes d'achat;1;Dans une commande d'achat, peut-on vérifier la date de condition de prix?;;;Faux;Vrai;A;" (dans l'onglet condition, icône ""condition détail"")"
+Logistique amont;UPL027;Commandes d'achat;2;Lors de la réception de marchandise dans un magasin EWM, Je ne peux pas créer la livraison entrante car la clé de pilotage de confirmation n'a pas été mise. Est-ce que je peux la modifier dans la commande?;;;Faux;Vrai;A;
+Logistique amont;UPL028;Commandes d'achat;2;Dans la transaction ME21N, pour une commande d'un article de sous traitance. Peut-on voir les composants d'un article sous traité à partir de cette transaction ?;;;Faux;Vrai;A;" (Dans le détail poste, onglet ""quantité/poids"")"
+Logistique amont;UPL030;Commandes d'achat;2;"Dans la transaction ME22N, dans le détail poste, onglet ""Echéancier"". Si mon fournisseur annonce un retard, quelle date dois-je modifier pour le voir dans la MD04?";;;La date de livraison;La date de livraison statistique;B;
+Logistique amont;UPL037;Commandes d'achat;2;"Dans la transaction ME5A, si je met le critère ""code de création"" = R, j'affiche les DA :";;;Créés manuellement;Créés par le MRP;B; (le NEUPL ne peut être lancé qu'au niveau division)
+Logistique amont;UPL038;Commandes d'achat;2;"Dans la transaction ME5A, si je met le critère ""code de création"" = B, j'affiche les DA :";;;Créés manuellement;Créés par le MRP;A;
+Logistique amont;UPL069;Demande d'achat;1;Que veut dire l'acronyme DA ?;;;Demande d'Achat;Suggestion d'achat;B;
+Logistique amont;UPL071;Demande d'achat;1;Quel est le code de la transaction pour modifier une Demande d'Achat ?;;;ME52N;ME22N;B;
+Logistique amont;UPL072;Demande d'achat;1;Quel est le code de la transaction pour afficher une Demande d'Achat ?;;;ME53N;ME23N;B;
+Logistique amont;UPL082;Demande d'achat;1;Dans la transaction ME53N, est-ce que je peux modifier les champs grisés ?;;;Faux;VRAI;B; (On est en affichage)
+Logistique amont;UPL087;Demande d'achat;3;Lorsque je crée une DA avec la transaction ME51N, est-ce que celle-ci est figée dans l'état dynamique des stocks ?;;;Faux;Vrai;A; (Elle ne sera pas challengée par le Calcul MRP)
+Logistique amont;UPL093;Demande d'achat;1;"Dans la transaction ME52N (modifier une DA), dans le détail poste, onglet ""Adresse de livraison"". Quelle est le l'adresse indiquée ?";;;L'adresse du magasin de réception;L'adresse de la société;B; (MF0X, PC0x, EX0X...)
+Logistique amont;UPL097;Demande d'achat;2;Quels sont les 3 parties d'un document d'achat (DA ou commande) ?;;;L'En-tête, la synthèse des postes, les données de poste;Le détail des postes;B;
+Logistique amont;UPL098;Demande d'achat;1;Est-il possible de créer une DA à partir d'un poste de contrat ?;;;Faux;Vrai;A;
+Logistique amont;UPL109;Demande d'achat;1;Est-il possible de renseigner l'en-tête par défaut: l'organisation d'achat, le groupe d'acheteur et la société lors de la création de DA?;;;Faux;Vrai;A;
+Logistique amont;UPL110;Demande d'achat;1;Est-il possible de renseigner des valeurs dans le poste par défaut: division, magasin lors de la création de DA?;;;Faux;Vrai;A;
+Logistique amont;UPL116;Données de base;1;Dans SAP S4, une même référence peut elle être planifier dans plusieurs divisions à la fois ?;;;Faux;Vrai;A;
+Logistique amont;UPL117;Données de base;1;Dans SAP S4, une même référence peut elle être vendue par différentes organisations commerciales ?;;;Faux;Vrai;A;
+Logistique amont;UPL118;Données de base;1;Dans SAP S4, une même référence peut elle être gérées en stock dans différents magasins ?;;;Faux;Vrai;A;
+Logistique amont;UPL119;Données de base;1;Dans SAP S4, une même référence peut être produite à la fois dans une division et achetée dans une autre ?;;;Faux;Vrai;A;
+Logistique amont;UPL120;Données de base;1;Quelle branche industrielle utilise t-on lorsque l'on crée une référence PF chez GA?;;;M construction mécanique;A Construction industrielle;B;
+Logistique amont;UPL129;Données de base;1;"Dans la vue planification des besoins 2, quelle valeur dois-je mettre dans le champ ""type approvisionnement"" pour un article fabriqué en interne ?";;;E;F;B;
+Logistique amont;UPL130;Données de base;1;"Dans la vue planification des besoins 2, quelle valeur dois-je mettre dans le champ ""type approvisionnement"" pour un article acheté ?";;;F;E;B;
+Logistique amont;UPL131;Données de base;1;Dans le core model, il n'est pas possible de mettre un stock de sécurité en quantité ?;;;Faux;Vrai;B;
+Logistique amont;UPL132;Achat Direct;1;Que veut dire l'acronyme BP ?;;;Business Partner;Best Partner;B;
+Logistique amont;UPL140;Données de base;2;Dans la vue donnée de base de la fiche article, quel statut article peut-on afficher ?;;;Le statut division;"Le statut ""article inter division""";A;
+Logistique amont;UPL141;Données de base;2;"Le statut ""article inter division"" prend t-il le pas sur le statut division ?";;;Faux;Vrai;A;
+Logistique amont;UPL142;Données de base;2;Est-ce que je peux faire une réception d'un article si son statut est 20 ?;;;Faux;Vrai;B;
+Logistique amont;UPL144;Données de base;2;"Est-ce que la vue ""données de base 1"" est dépendante à une organisation ?";;;Faux;Vrai;B;
+Logistique amont;UPL145;Données de base;2;Dans la vue ADV: donnée générale / divi, quel champ sert à déterminer l'acheminement/itinéraire d'un article ?;;;Le groupe de chargement;Le groupe de transport;A;" (Dans le détail poste, onglet ""quantité/poids"")"
+Logistique amont;UPL149;Données de base;2;Dans la vue planification des besoins 1, Si l'article est en statut 30 est-ce que je peux l'utiliser en production ?;;;Faux;Vrai;B;
+Logistique amont;UPL155;Données de base;2;"Dans la vue planification des besoins 1, le champ ""Rebut ss-en. (%) est-il utilisé dans le core model GA ?";;;Faux;Vrai;B;
+Logistique amont;UPL156;Données de base;2;Dans la vue planification des besoins 1, est-ce que je peux mettre la valeur que je souhaite dans le profil d'arrondi ?;;;Faux;Vrai;B; (les valeurs sont ajoutés par la DSI)
+Logistique amont;UPL158;Données de base;2;"Dans la vue planification des besoins 2, quelle valeur dois-je mettre dans le champ ""approvisionnement spécial"" si l'article est multi-sourcé avec un fournisseur groupe et un fournisseur externe ?";;;La clé du fournisseur groupe;La clé du fournisseurexterne (20);B;
+Logistique amont;UPL160;Achat Direct;2;Dans le cas d'un article multi-sourcé, quel délai doit-on mettre ?;;;Le plus court;Le plus long;A;
+Logistique amont;UPL161;Achat Direct;2;Quel impact a un délai de sécurité sur le besoin dans le calcul MRP ?;;;Il anticipe le besoin de x jours;Il retarde le besoin de x jours;B;
+Logistique amont;UPL163;Achat Direct;2;% limite de livraison incomplète. Que se passe-t-il si la quantité livrée est inférieure à cette valeur ?;;;La ligne de la commande d'achat est soldée automatiquement;La ligne de la commande d'achat n'est pas soldée automatiquement;B;
+Logistique amont;UPL164;Achat Direct;2;% limite de livraison excédentaire. Que se passe-t-il si la quantité livrée est supérieure à cette valeur ?;;;La réception totale est possible par le magasinier;La réception totale est impossible par le magasinier;A;
+Logistique amont;UPL165;Données de base;1;Est-ce qu'un article Z007 (commençant par 7) peut être en tête de nomenclature ?;;;Faux;Vrai;B;
+Logistique amont;UPL178;Données de base;3;Le délai prévisionnel de livraison d'un fournisseur est en  ?;;;Jours calendaires;Jours ouvrés;B;
+Logistique amont;UPL186;Achat Direct;3;Peut-on mettre une valeur de relance négative sur le délai de livraison dans le poste d'un contrat ?;;;Faux;Vrai;A; (le fournisseur sera prévenu par mail quelques jours avant la date de livraison prévue)
+Logistique amont;UPL234;MRP;1;Lorsque que je crée une DA à partir de la transaction ME51N, est- ce que le code de fixation est coché ?;;;Faux;Vrai;B; (Mais il y a une étoile * dans le numéro de la DA)
+Logistique amont;UPL235;MRP;1;Si un article n'a pas de contrat d'achat, est-ce que le calcul MRP génère une DA ?;;;Faux;Vrai;A; (on aura une DA sans founisseur)
+Logistique amont;UPL236;MRP;1;Est-ce que je peux avoir un message d'exception sur un élément MRP représentant un besoin ?;;;Faux;Vrai;B;
+Logistique amont;UPL241;MRP;1;Quel est le code de la transaction pour lancer en masse le MRP ?;;;MDBT;MD04;B;
+Logistique amont;UPL242;MRP;1;Quel est le code de la transaction pour lancer un MRP individuel multi-niveau ?;;;MD01;MD02;A;
+Logistique amont;UPL243;MRP;1;Est il possible de lancer un calcul mrp sur une famille d'articles ?;;;Faux;Vrai;A; (par codes gestionnaire)
+Logistique amont;UPL244;MRP;1;Est il possible de lancer un calcul mrp sur des articles d'un fournisseur donnée ?;;;Faux;Vrai;B;
+Logistique amont;UPL248;MRP;1;Dans la liste MRP, que signifie le message d'exception 30 pour une DA ?;;; DA en retard par rapport au besoin;Erreur de nomenclature;B;
+Logistique amont;UPL249;MRP;1;Dans la liste MRP, que signifie le message d'exception 10 pour une commande d'achat ?;;;La commande est en avance par rapport au besoin;La commande d'achat est en retard par rapport au besoin;A;
+Logistique amont;UPL251;MRP;1;Dans la liste MRP, que signifie le message d'exception 15 pour une commande d'achat?;;;Reporter la date de livraison à plus tard;Avancer la date de la livraison;B;
+Logistique amont;UPL257;MRP;1;Dans l'écran de résultat de la ZMD06,  que signifie les chiffres dans chaque groupe de messages?;;;Le nombre de références;Le nombre de messages d'exception;A;
+Logistique amont;UPL267;MRP;1;Comment voit-on dans l'état dynamique des stocks qu'une DA est figée ?;;;Il y a une étoile * dans le numéro de la DA;La DA est en gras;B;
+Logistique amont;UPL272;MRP;1;Est-ce que les listes MRP sont archivées ?;;;Faux;Vrai;B; (on a accès uniquement à la dernière liste MRP)
+Logistique amont;UPL273;MRP;2;Que fait le calcul MRP NETCH ?;;;Le système recalcul uniquement si un élément évolue (stock, besoin, fiche article…);Les listes mrp sont recalculées intégralement sur la liste des articles de la base planifiables;B;
+Logistique amont;UPL279;MRP;1;A quoi correspond le groupe 1 dans la ZMD06 ?;;;Messages informatifs;Données incohérentes : pas de bom, gamme absente;A;
+Logistique amont;UPL282;MRP;1;A quoi correspond le groupe 5 dans la ZMD06 ?;;;Opération à décaler / sur Stock;Fin de vie;B;
+Logistique amont;UPL287;MRP;1;Peut-on avoir des besoins dépendants pour un Z006 fantôme ?;;;Faux;Vrai;B;( ce n'est pas géré en stock)
+Logistique amont;UPL291;MRP;1;Dans une DA, le délai prévisionnel de livraison du fournisseur est en jours ?;;;Calendaires;Ouvrés;B;
+Logistique amont;UPL293;MRP;1;Dans la transaction MD02, est-ce que le calcul MRP peut être lancé avec le mode NEUPL ?;;;Faux;Vrai;B; (le NEUPL ne peut être lancé qu'au niveau division)
+Logistique amont;UPL310;Programme de livraison et sous traitance;1;Quel le type du programme de livraison ne permet pas de générer des appels?;;;LPA;LP;A;
+Logistique amont;UPL311;Programme de livraison et sous traitance;1;Lorsque qu'une référence est gérée au titre d'un programme de livraison de type LPA, quel paramètre de la vue MRP2 de la fiche article doit être égale à 1.;;;Prélèvement rétroactif;Code appel horaire;A;
+Logistique amont;UPL313;Programme de livraison et sous traitance;1;A quel objet achat est rattaché un programme de livraison?;;;Un contrat d'achat;Un GPS;B;
+Logistique amont;UPL326;Programme de livraison et sous traitance;1;"Dans la transaction ME84 (Créer appels), que se passe-t-il si je ne coche pas la case ""test"" ?";;;L'échéancier est édité et envoyé au fournisseur;L'échéancier est édité uniquement;B;
+Logistique amont;UPL331;Programme de livraison et sous traitance;1;Quel est le code de la transaction permettant de faire une entrée de marchandise sur un programme de livraison ?;;;VL32L;MIGO;A;
+Logistique amont;UPL335;Programme de livraison et sous traitance;1;Lorsque je supprime une référence dans un programme de livraison, Est-ce que je peux encore faire la réception de facture?;;;Faux;Vrai;B;
+Logistique amont;UPL336;Programme de livraison et sous traitance;1;Lorsque je supprime une référence dans un programme de livraison, Est-ce réversible?;;;Faux je dois créer un bugzy;Vrai;A;
+Logistique amont;UPL339;Programme de livraison et sous traitance;1;Un article sous traité chez un fournisseur  a-t-il une version de fabrication?;;;Faux;Vrai;A;vec la disquette
+Logistique amont;UPL345;Programme de livraison et sous traitance;1;Quelle transaction utilise-t-on pour créer une livraison sortante pour envoyer des composants vers un sous traitant?;;;ME2O;VL31L;B;
+Logistique amont;UPL346;Programme de livraison et sous traitance;1;Lors de la sortie de marchandise, peut-on mettre une quantité prélevée différente de la quantité livrée dans la livraison sortante?;;;Faux;Vrai;A;
+Logistique amont;UPL347;Programme de livraison et sous traitance;1;Lorsque la sortie de marchandise a été effectuée vers un sous traitant, qui est le propriétaire de la marchandise?;;;Le Groupe Atlantic;Le sous traitant;B;
+Logistique amont;UPL349;Programme de livraison et sous traitance;2;Lors de la réception d'une commande de sous traitance (MIGO), peut-on ajuster la quantité de composants consommés ?;;;Faux;Vrai;A;" (Dans le détail poste, onglet ""quantité/poids"")"
+Logistique amont;UPL354;Programme de livraison et sous traitance;1;Est-il possible de gérer un stock de sécurité chez un sous traitant ?;;;Faux;Vrai;A; (avec une unité de planification)
+Logistique amont;UPL004;Achat Direct;3;Quelles informations du contrat se répercutent dans la FIA si elles sont modifiées;;Clé de confirmation;Délai prev de livraison;Qté mini et multiple;A;
+Logistique amont;UPL005;Achat Direct;2;Quelle transaction utilise t-on pour afficher la Fiche Info achat ?;;ME13;ZPU010;ME03;C;
+Logistique amont;UPL009;Achat Direct;3;Quelle transaction utilise-t-on pour gérer un Quota ?;;QU01;QI01;QC01;B;
+Logistique amont;UPL010;Achat Direct;3;Quelle transaction utilise-t-on pour modifier un Quota ?;;QI02;QC02;QU02;C;
+Logistique amont;UPL011;Achat Direct;3;Quelle transaction utilise-t-on pour afficher un Quota  ?;;QU03;QC03;QI03;A;
+Logistique amont;UPL014;Achat Direct;4;Quelle transaction utilise t-on pour afficher un Répertoire de Source d'Approvisionnement  ?;;ME01;ZPU010;ME03;A;
+Logistique amont;UPL026;Commandes d'achat;2;Dans la transaction ME21N, Quelle couleur de message est bloquant lors de la valideation de la commande ?;;Orange;Vert;Rouge;A;
+Logistique amont;UPL033;Commandes d'achat;2;"Dans la transaction ME2M ""document d'achat pour article"", l'histogramme dans la colonne ""histo de commande"" sur une ligne de commande veut dire qu'une quantité a été ?";;Facturée;Réceptionnée;Commandée;B;
+Logistique amont;UPL034;Commandes d'achat;2;Par quel numéro commence un contrat d'achat ?;;55;45;46;A;
+Logistique amont;UPL035;Commandes d'achat;2;Par quel numéro commence un commande d'achat ?;;18;45;46;B;
+Logistique amont;UPL036;Commandes d'achat;2;Où sont enregistrées les informations de relances de livraison pour un fournisseur externe ?;;Dans le contrat d'achat;Fiche article;RSA;C;
+Logistique amont;UPL039;Commandes d'achat;2;Quel transaction permet d'envoyer des commandes d'achat et des DA à un fournisseur sous Olga?;;ZLOG396;ZME59N;ME22N;C;
+Logistique amont;UPL074;Demande d'achat;2;quel est le code de la transaction pour lister les DA non affectées à un fournisseur ?;;ZMD06;ZME59N;ME5A;A;
+Logistique amont;UPL079;Demande d'achat;2;Quels sont les 2 premiers chiffres du numéro de commande d'achat dans le core model GA?;;18;45;55;B;
+Logistique amont;UPL080;Demande d'achat;2;Si je convertie une DA en commande d'achat comment s'appelle l'élément MRP dans l'état dynamique des stocks (MD04) ?;;ECHCDE;CDECl;DA;C;
+Logistique amont;UPL081;Demande d'achat;2;"Dans la transaction ME52N (modifier une DA), dans le détail poste, onglet ""Source appro"". Que se passe t-il si je double clique sur le poste du contrat ?";;Cela ouvre la ZPU010;Rien;Le contrat s'ouvre en affichage pour le poste concerné : ME33K;A;
+Logistique amont;UPL083;Demande d'achat;2;"Dans la transaction ME53N, A quoi sert l'icone ""lunette & crayon"" ?";;A modifier la DA;Afficher la DA;Supprimer la DA;C;
+Logistique amont;UPL084;Demande d'achat;2;"Dans une DA, d'où provient l'information ""magasin de réception "" pour un fournisseur externe?";;La FIQ;Le contrat;La fiche article;B;
+Logistique amont;UPL092;Demande d'achat;3;"Dans la transaction ME52N (modifier une DA), dans le détail poste, onglet ""textes"", quels sont les textes qui ont été activés dans le core model ?
+- Texte du poste
+- Notice du poste
+- Texte de livraison
+- Texte de commandes";;Textes de commandes;Notice du poste;Texte du poste, texte de livraison;A;
+Logistique amont;UPL105;Demande d'achat;3;"Dans la transaction ME52N (modifier une DA), dans le détail poste, onglet ""valorisation"".La coche ""Entrée de marchandise"" sert à déterminer une entrée de :";;Marchandise est attendue pour le poste de la DA;Marchandise est attendue pour le poste de la commande;Facture est attendue pour le poste de la DA;B;
+Logistique amont;UPL106;Demande d'achat;3;"Dans la transaction ME52N (modifier une DA), dans le détail poste, onglet ""valorisation"". La coche ""Entrée facture"" sert à déterminer un entrée de :";;Facture est attendue pour le poste de la DA,;Marchandise est attendue pour le poste de la commande;Facture est attendue pour le poste de la commande;C;
+Logistique amont;UPL107;Demande d'achat;3;"Dans la transaction ME52N (modifier une DA), dans le détail poste, onglet ""Contact"". D'ou viennent les infos : Grpe acheteurs et Gestionnaire ?";;du BP;Du contrat;De la fiche article;A;
+Logistique amont;UPL112;Demande d'achat;3;Lors de la création d'une DA avec la transaction ME51N, quel est le fournisseur proposé par le RSA dans le cas d'une référence multisource ?;;Celui avec le meilleur prix;Le 1er;Celui avec le délai le plus court;B; (MAJ avec division)
+Logistique amont;UPL133;Achat Direct;1;Quelle est la clé qui permet de gérer l'approvisionnement d'une pièce en sous traitance dans un contrat d'achat?;;vide;S;C;B;
+Logistique amont;UPL134;Achat Direct;1;Quelle est la clé qui permet de gérer l'approvisionnement d'une pièce en Consignation dans un contrat d'achat?;;vide;S;C;A;
+Logistique amont;UPL135;Achat Direct;1;Quelle est la clé qui permet de gérer l'approvisionnement d'une pièce standard dans un contrat d'achat?;;pas de clé / champ vide;C;S;C;
+Logistique amont;UPL148;Achat Direct;2;"Dans la vue achats, dans quel cas utilise t-on la coche ""code: appel horaire""";;Consignation;Sous Traitance;Programme de livraison;A;
+Logistique amont;UPL176;Données de base;3;"Dans la vue planification des besoins 2, quelle valeur dois-je mettre dans le champ ""approvisionnement spécial"" si l'article est acheté à un fournisseur externe ?";;20;30;50;C;
+Logistique amont;UPL180;Données de base;3;Que se passe-t-il si je réceptionne un composant dont la fonction de blocage de la FIQ est à Z1 (Non autorisé). Lors de l'entrée de marchandise, le stock sera en ?;;Statut libre;Statut qualité;Statut bloqué;B;
+Logistique amont;UPL183;Achat Direct;3;quelle transaction utilise-t-on pour modifier un contrat ?;;ZPU010;ME22N;ME33K;C;
+Logistique amont;UPL184;Achat Direct;2;quelle transaction utilise-t-on pour afficher un contrat ?;;ME32K;ZPU010;ME21N;B;
+Logistique amont;UPL187;Achat Direct;3;Quand s'arrête la relance sur délai de livraison (mis en place dans le contrat) ?;;Lorsque  l'AR est saisi;Lorsque la réception est faîte;Lorsque la livraison entrante est saisie;B;
+Logistique amont;UPL223;Données de base;4;"Dans la vue ""management de la qualité"", quelle clé de pilotage QM dois-je mettre  pour rendre la FIQ obligatoire ? Z001 ou Z002";;Z003;Z002;Z001;A;
+Logistique amont;UPL245;MRP;2;Quelle transaction utilise-t-on pour faire l'analyse d'une liste MRP multi-critères ?;;MD05;ZMD07;ZMD06;A;
+Logistique amont;UPL246;MRP;2;A quoi sert la transaction ZMD06 ?;;Lister les DA sans fournisseur;A faire l'analyse MRP multi-critères d'une liste de références;A lancer le MRP;B;
+Logistique amont;UPL247;MRP;2;Dans la ZMD06, à quoi sert le statut de traitement (coche verte) ?;;Permet d'indiquer que l'article à été analysé par l'approvisionneur;Rien;indicateur de conversion de DA en commande;C;
+Logistique amont;UPL250;MRP;2;Dans la liste MRP, que signifie le message d'exception 01 ?;;Nomenclature manquante;Erreur système;Elément repositionné;A;
+Logistique amont;UPL253;MRP;2;Dans la liste MRP, que signifie le message d'exception 20 pour une commande d'achat?;;Repousser la date de livraison;Annuler l'OA;Avancer la date de la livraison;B; (car plus de besoin)
+Logistique amont;UPL261;MRP;2;"Dans la transaction MD04, si je clique sur l'icône ""crayon"" d'une DA, quelle transaction s'ouvre?";;ME52N;ME51N;ME22N;C;
+Logistique amont;UPL264;MRP;2;"Dans la transaction MD04, si je clique sur l'icône ""lunette"" d'une commande d'achat, quelle transaction s'ouvre?";;ME53N;ME22N;ME23N;A;
+Logistique amont;UPL280;MRP;2;A quoi correspond le groupe 2 dans la ZMD06 ?;;Opération à décaler / sur Stock;Opérations en retard/stock négatif;Dates de fin dans le passé;B;
+Logistique amont;UPL283;MRP;2;A quoi correspond le groupe 6 dans la ZMD06 ?;;Remplacement de composant / fin de vie;Messages informatifs;Interruptions de calcul mrp;C;
+Logistique amont;UPL288;MRP;3;Sur quel élément mrp peux-je avoir un message 50 (aucune nomenclature) ?;;Échéance de programme de livraison;Ordre planifié;DA;B;
+Logistique amont;UPL303;MRP;2;Quelle transaction permet de supprimer des listes MRP en masse ?;;Aucune;ME5A;MD08;A;
+Logistique amont;UPL308;Programme de livraison et sous traitance;2;Quel est la conséquence de l'absence d'un groupe de chargement dans la fiche article de la matière composant un article sous traité?;;Pas de conséquence;L'article sous traité ne peut être réceptionné;La matière ne peut être expédiée chez le sous traitant;A;
+Logistique amont;UPL312;Programme de livraison et sous traitance;2;Quelle transaction permet de créer un programme de livraison ?;;ME84;ME31L;ME37;B;
+Logistique amont;UPL314;Programme de livraison et sous traitance;2;Lors de la création d'un programme de livraison, quel champ doit-on cocher si on veut assurer des réceptions anticipées ?;;Illimitée;Livraison Finale;EM[Entrée de Marchandises];C;
+Logistique amont;UPL315;Programme de livraison et sous traitance;2;"Lors de la création d'un programme de livraison, quelle valeur met-on dans le champs ""MAJ fiche Info achat"" dans le Core Model?";;C;A;B;B; (MAJ avec division)
+Logistique amont;UPL319;Programme de livraison et sous traitance;2;"Lors de la création d'un programme de livraison, quelle clé met-on dans le champs ""profil de création"" pour un appro à la semaine?";;Z003;Z002;Z003;A;
+Logistique amont;UPL321;Programme de livraison et sous traitance;3;Quel est le code de la transaction qui permet de créer manuellement des échéances sur un programme de livraison?;;ME38;ME84;ME32L;C;
+Logistique amont;UPL322;Programme de livraison et sous traitance;3;Dans la transaction ME38 (gestion des échéances d'un programme de livraison), que se passe-t-il si je modifie la quantité d'une échéance?;;L'échéance se fige dans la MD04;L'échéance  disparait de la MD04;Rien;C;
+Logistique amont;UPL323;Programme de livraison et sous traitance;2;Quel est le code de la transaction permettant de générer un appel de livraison ?;;ME38;ME84;ME33L;B;
+Logistique amont;UPL329;Programme de livraison et sous traitance;2;Lors de la réimpression du message vers le fournisseur avec la transaction ME9E, quel statut doit-on mettre pour sélectionner les traitements sans erreur ?;;1 - Traitement sans erreur);0 - non traité);2 - traitement erroné;C;
+Logistique amont;UPL332;Programme de livraison et sous traitance;2;Comment solde t-on le reliquat d'une échéance d'un programme de livraison?;;On supprime l'échéance;On coche la case livraison finale;On aligne la quantité de l'échéance avec la quantité reçue;A;
+Logistique amont;UPL337;Programme de livraison et sous traitance;2;"Avec quelle transaction peut-on envoyer les échéances de livraison de type ""LP""?";;ME84;ME3L;ME38;B;
+Logistique amont;UPL341;Programme de livraison et sous traitance;2;Quel est le type de poste pour un contrat de sous traitance ?;;Aucun;C;S;B;
+Logistique amont;UPL348;Programme de livraison et sous traitance;2;Quelle transaction utilise-t-on pour vérifier l'état des stocks des composants envoyés chez un sous traitant ?;;MB52;MD04;MBLB;A; (MMBE possible)
+Logistique amont;UPL355;Programme de livraison et sous traitance;2;Un sous traitant fait un assemblage de pièces fabriquées à l'usine, quel objet SAP porte le coût de la prestation (Main d'œuvre) ?;;La nomenclature;La gamme;Le contrat d'achat;A;
+Logistique amont;UPL003;Achat Direct;2;A quel moment se crée la fiche info achat ?;A la création de l'article; A la création du BP;A la création du contrat;Lors de la création de la 1ère commande d'achat;A;
+Logistique amont;UPL006;Achat Direct;3;Quelle transaction utilise-t-on pour modifier la Fiche Info achat ?;ME22N;ME12;ZPU010;ME02;C;
+Logistique amont;UPL012;Achat Direct;4;Quelle est la fréquence de mise à jour du RSA (Répertoire Source d'approvisionnement?;Semaine;10min;Heure;Jour;C;
+Logistique amont;UPL042;Commandes d'achat;3;"Dans la transaction ME22N, dans le détail poste, onglet ""Livraison"". D'où vient l'information sur les tolérances de livraisons  pour un fournisseur externe?";RSA;FIQ;Fiche article;Contrat d'achat;A;
+Logistique amont;UPL043;Commandes d'achat;3;"Dans la transaction ME22N, dans le détail poste, onglet ""Livraison"". D'où vient l'information sur les relances ?";RSA;FIQ;Contrat d'achat;Fiche article;B;
+Logistique amont;UPL044;Commandes d'achat;3;"Dans la transaction ME22N, dans le détail poste, onglet ""Adresse de livraisons"". D'où vient l'information concernant l'adresse ?";Quota;Du magasin de livraison renseigné dans la commande;BP;Fiche article;C;
+Logistique amont;UPL045;Commandes d'achat;3;"Dans une commande à un fournisseur externe (ME22N), dans le détail poste, onglet ""Confirmations"". D'où vient l'information ""pilotage de confirmation""";RSA;FIQ;Fiche article;Contrat d'achat;A;
+Logistique amont;UPL048;Commandes d'achat;3;Lorsque je saisis un AR de commande, comment s'appelle l'élément MRP dans l'état dynamique des stocks (MD04) ?;DA;AppLiv;AviCde;EchCde;B;
+Logistique amont;UPL049;Commandes d'achat;3;Quelle transaction permet d'afficher des commandes d'achat et des prévisions (DA) pour un fournisseur externe?;ZPP088;ZLOG140;ME5A;ME2M;C;
+Logistique amont;UPL050;Commandes d'achat;3;Quel type de commande dois-je utiliser pour une commande d'achat IntraCO ?;ZUB;ZLPP;ZD1;ZUT;D;
+Logistique amont;UPL051;Commandes d'achat;3;Dans la transaction ME21N, dans quel onglet peux-je demander plusieurs dates de livraisons pour un poste de commande ?;"Onglet ""livraison""";"Onglet ""quantité et poids""";"Onglet ""confirmation""";"Onglet ""échéancier""";A;
+Logistique amont;UPL052;Commandes d'achat;3;Dans la transaction ME21N, dans quel onglet je peux saisir mes AR pour un poste de commande ?;"Onglet ""confirmation""";"Onglet ""quantité et poids""";"Onglet ""échéancier""";"Onglet ""livraison""";D;
+Logistique amont;UPL057;Commandes d'achat;3;"Dans une commande à un fournisseur intra-Co (ME22n), dans le détail poste, onglet ""Confirmations"". D'où vient l'information ""pilotage de confirmation""";Custo;Contrat;Fiche article;RSA;D;
+Logistique amont;UPL060;Commandes d'achat;4;Quelle transaction permet d'envoyer un mail de relance à un fournisseur s'il n'a pas livré le jour J ?;ZPU010;ME91F;ME92F;ME5A;C;
+Logistique amont;UPL061;Commandes d'achat;4;Quelle transaction permet d'afficher toutes les commandes pour lesquelles un AR a été demandé et pas renseigné dans la commande d'achat ?;ME92F;ME5A;ME91F;ZPU010;D;
+Logistique amont;UPL070;Demande d'achat;3;Quel est le code de la transaction pour créer une Demande d'Achat ?;ME2L;ME31L;ME51N;ME21N;B;
+Logistique amont;UPL075;Demande d'achat;2;Quel est le code de la transaction permettant de créer des commandes d'achats en masse à partir de DA ?;ME52N;ZLOG140;ME5A;ZME59N;A;
+Logistique amont;UPL085;Demande d'achat;3;Quel est le type de document pour une DA issu du MRP ?;ZB;NB;ZD1;ZDI;C;
+Logistique amont;UPL088;Demande d'achat;3;Dans une DA, le délai prévisionnel de livraison du fournisseur externe est issu du :;Contrat;Quota;Fiche article;FIQ;D;
+Logistique amont;UPL143;Achat Direct;2;A partir de quel statut d'un article je peux passer une commande d'achat ?;40;31;20;30;B;
+Logistique amont;UPL159;Achat Direct;3;Dans quel objet SAP est renseigné le délai prévisionnel de livraison pour un fournisseur  externe dans le core model GA ?;Le BP;La FIQ;La fiche article;Le contrat;A;
+Logistique amont;UPL166;Données de base;3;Quel est le type article pour les produits configurables chez GA?;Z008;Z004;Z003;Z002;A;
+Logistique amont;UPL167;Données de base;3;Combien existe-t-il de types articles dans le core model de GA ?;13;12;14;11;B;
+Logistique amont;UPL170;Données de base;3;Dans la vue donnée de base 1, quelle langue dois-je choisir pour un article dont le BP est non Français ?;Arabe;L'anglais;Chti;Chinois;C;
+Logistique amont;UPL171;Données de base;3;Dans la vue Classification, quelle est la clé utilisée si le PF doit suivre un type de flux automatisé : Production + Transfer;Z001;Z003;Z002;Z004;D;
+Logistique amont;UPL177;Données de base;3;"Dans la vue planification des besoins 2, quelle valeur dois-je mettre dans le champ ""approvisionnement spécial"" si l'article est acheté à E2C?";33;23;13;43;A;
+Logistique amont;UPL179;Données de base;3;"Dans la vue planification des besoins 2, quelle valeur dois-je mettre dans le champ ""Délai de sécurité"" si je veux mettre x jours de délai de sécurité?";Vide;3;2;1;B;
+Logistique amont;UPL185;Achat Direct;3;Combien de relances maximum peut-on mettre sur le délai de livraison dans le poste d'un contrat ? ;4;2;3;1;B;
+Logistique amont;UPL260;MRP;3;"Dans la transaction MD04, si je clique sur l'icone ""lunette"" d'une DA, quelle transaction s'ouvre?";ME22N;ME52N;ME53N;ME51N;B;
+Logistique amont;UPL262;MRP;3;"Dans la transaction MD04, si je clique sur l'icône ""-> commande"" d'une DA, quelle transaction s'ouvre?";ME22N;ME21N;ME51N;ME52N;C;
+Logistique amont;UPL263;MRP;3;"Dans la transaction MD04, si je clique sur l'icône ""crayon"" d'une commande d'achat, quelle transaction s'ouvre?";ME22N;ME52N;ME51N;ME21N;D;
+Logistique amont;UPL274;MRP;2;Que fait le calcul MRP NEUPL ?;fiche article…);besoin;Le système recalcul uniquement si un élément évolue (stock;Les listes mrp sont recalculées intégralement sur la liste des articles de la base planifiables;A;
+Logistique amont;UPL276;MRP;3;Lorsque je crée des variantes de sélection, la bonne pratique veut que le code commence par ?;Code gestionnaire;Code magasin;Le nom du créateur;Le code de la division;A;
+Logistique amont;UPL278;MRP;3;Dans la ZMD06, combien y a-t-il de groupes de messages d'exception ?;12;10;8;6;B;
+Logistique amont;UPL281;MRP;3;A quoi correspond le groupe 3&4 dans la ZMD06 ?;Opération à décaler;Dates de fin dans le passé;Stock négatif;Messages informatifs;C;
+Logistique amont;UPL292;MRP;3;En quelle année a été mis au point le calcul MRP par Joseph Orlicky ?;1980;1965;1970;1960;A;
+Logistique amont;UPL300;MRP;3;"Dans la MDBT, lorsque tu cliques sur le bouton ""résultats"", combien de pages maxi peuvent s'afficher ?";10;20;30;50;D;
+Logistique amont;UPL301;MRP;3;"Dans la MDBT, lorsque tu cliques sur le bouton ""résultats"", Sur quelle page se trouve les statistiques du calcul?";La dernière page !;1;2;10;D;
+Logistique amont;UPL306;mrp;3;Combien de messages d'exception maxi peut stocker un élément MRP (DA)?;5;3;2;1;B;
+Logistique amont;UPL309;Programme de livraison et sous traitance;3;Quel le type du programme de livraison permet de générer des appels envoyés au fournisseur ?;ZLU;LU;LP;LPA;A;
+Logistique amont;UPL316;Programme de livraison et sous traitance;3;"Lors de la création d'un programme de livraison, quelle valeur met-on dans le champs ""Type date de prix"" dans le Core Model?";2;3;5;1;B; (Date d'entrée des marchandises)
+Logistique amont;UPL317;Programme de livraison et sous traitance;3;"Lors de la création d'un programme de livraison, quelle clé met-on dans le champs ""profil de création"" pour un appro à la 1/2 journée?";Z004;Z001;Z002;Z003;C;
+Logistique amont;UPL318;Programme de livraison et sous traitance;3;"Lors de la création d'un programme de livraison, quelle clé met-on dans le champs ""profil de création"" pour un appro à la journée?";Z002;Z003;Z001;Z004;D;
+Logistique amont;UPL330;Programme de livraison et sous traitance;3;Avec quelle transaction peut-on envoyer les échéances de livraison sous format Excel à un fournisseur?;ME38;ME84;ME2L;ME3L;A;
+Logistique amont;UPL333;Programme de livraison et sous traitance;3;Quelle transaction permet d'ajouter une référence à un programme de livraison ?;ME3L;ZPU010;ME32L;ME22N;B; (Date d'entrée des marchandises)
+Logistique amont;UPL338;Programme de livraison et sous traitance;3;Quel est le code d'approvisionnement spécial, onglet MRP2 de la fiche article pour un article sous traité?;Vide;30;50;20;C;
+Logistique amont;UPL340;Programme de livraison et sous traitance;3;Quelle transaction utilisez vous pour vérifier la nomenclature d'un article sous traité?;CS03;CA03;C223;CS02;D;
+Logistique amont;UPL342;Programme de livraison et sous traitance;3;"Si un composant est livré directement chez le sous traitant, quelle valeur met-on dans le champs ""Magasin pour appro. Ext"" de la fiche article et du contrat?";Le magasin du fournisseur;Le magasin externe;Le magasin d'usine;VIDE;A;
+Logistique amont;UPL351;Programme de livraison et sous traitance;3;Quel est le code mouvement utilisé dans la transaction MIGO pour scrapper des composants chez un fournisseur ?;551-O;551-T;551;552-O;D; (O pour segment de sous traitance)
+Logistique amont;UPL353;Programme de livraison et sous traitance;3;Combien y a t'il d'unités de planification de sous traitance si j'ai 3 fournisseurs de sous traitance?;1;3;0;2;C;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;D;
