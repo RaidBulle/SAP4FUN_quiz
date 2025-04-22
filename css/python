@@ -1,0 +1,16 @@
+import pandas as pd
+import os
+
+# Liste tous les fichiers .xlsx à la racine
+xlsx_files = [f for f in os.listdir('.') if f.endswith('.xlsx')]
+
+for excel_file in xlsx_files:
+    json_file = excel_file.replace('.xlsx', '.json')
+
+    # Lecture de l'Excel
+    df = pd.read_excel(excel_file, engine="openpyxl")
+
+    # Écriture du JSON en conservant accents et bonne indentation
+    df.to_json(json_file, orient="records", indent=2, force_ascii=False)
+
+    print(f"✅ {excel_file} → {json_file}")
