@@ -3,7 +3,7 @@ let questionsData = [];
 let currentQuestion = {};
 let score = 0;
 let selectedDomain = '';
-let selectedThème = '';
+let selectedTheme = ''; // Correction : sans accent
 let filteredQuestions = [];
 let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
@@ -39,36 +39,36 @@ function initDomaines() {
     
     domaineSelect.addEventListener('change', function() {
         selectedDomain = this.value;
-        updateThèmes();
+        updateThemes(); // Correction : sans accent
     });
 }
 
 // Mettre à jour les thèmes
-function updateThèmes() {
-    const thèmeSelect = document.getElementById('thème-select');
-    thèmeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
+function updateThemes() { // Correction : sans accent
+    const themeSelect = document.getElementById('theme-select'); // Correction : sans accent
+    themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
     
     if (!selectedDomain) return;
     
-    const thèmes = [...new Set(
+    const themes = [...new Set( // Correction : sans accent
         questionsData
             .filter(q => q.Domaines === selectedDomain)
-            .map(q => q["Thèmes"])
+            .map(q => q["Thèmes"]) // Doit correspondre exactement au champ dans le JSON
     )];
     
-    thèmes.forEach(thème => {
+    themes.forEach(theme => { // Correction : sans accent
         const option = document.createElement('option');
-        option.value = thème;
-        option.textContent = thème;
-        thèmeSelect.appendChild(option);
+        option.value = theme;
+        option.textContent = theme;
+        themeSelect.appendChild(option);
     });
 }
 
 // Démarrer le quiz
 function startQuiz() {
-    selectedThème = document.getElementById('thème-select').value;
+    selectedTheme = document.getElementById('theme-select').value; // Correction : sans accent
     
-    if (!selectedDomain || !selectedThème) {
+    if (!selectedDomain || !selectedTheme) {
         alert("Veuillez sélectionner un domaine et un thème !");
         return;
     }
@@ -77,7 +77,7 @@ function startQuiz() {
     currentQuestionNumber = 0;
     
     filteredQuestions = questionsData
-        .filter(q => q.Domaines === selectedDomain && q["Thèmes"] === selectedThème)
+        .filter(q => q.Domaines === selectedDomain && q["Thèmes"] === selectedTheme) // Correction : sans accent
         .sort(() => 0.5 - Math.random())
         .slice(0, MAX_QUESTIONS);
 
@@ -127,7 +127,7 @@ function displayQuestion() {
         
         <div class="question-header">
             <span class="badge domaine">${currentQuestion.Domaines}</span>
-            <span class="badge theme">${currentQuestion["Thémes"]}</span>
+            <span class="badge theme">${currentQuestion["Thèmes"]}</span> <!-- Correction : sans accent -->
             <span class="badge niveau">Niveau ${currentQuestion["Niveau de question"]}</span>
         </div>
 
