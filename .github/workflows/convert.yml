@@ -25,6 +25,10 @@ jobs:
       - name: 🔄 Lancer la conversion Excel → JSON
         run: python convert.py
 
+      - name: Push changes
+        run: |
+          git push https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+
       - name: 💾 Commit des fichiers JSON générés
         run: |
           git config user.name "github-actions"
