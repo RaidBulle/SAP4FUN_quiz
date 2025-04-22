@@ -22,7 +22,7 @@ jobs:
         run: pip install pandas openpyxl
 
       - name: 🔄 Lancer la conversion
-        run: python convert_excel_to_json.py
+        run: python convert.py
 
       - name: 💾 Commit des fichiers JSON générés
         run: |
