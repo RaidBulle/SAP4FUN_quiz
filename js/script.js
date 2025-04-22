@@ -3,7 +3,7 @@ let questionsData = [];
 let currentQuestion = {};
 let score = 0;
 let selectedDomain = '';
-let selectedTheme = ''; // Correction : sans accent
+let selectedTheme = '';
 let filteredQuestions = [];
 let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
@@ -16,6 +16,7 @@ function loadQuestions() {
             return response.json();
         })
         .then(data => {
+            console.log("Questions chargées:", data); // Debug
             questionsData = data;
             initDomaines();
         })
@@ -28,7 +29,13 @@ function loadQuestions() {
 // Initialiser les domaines
 function initDomaines() {
     const domaineSelect = document.getElementById('domaine-select');
+    
+    // Vider le select avant de le remplir
+    domaineSelect.innerHTML = '<option value="">Sélectionnez un domaine</option>';
+    
+    // Debug: Vérifier les domaines disponibles
     const domaines = [...new Set(questionsData.map(q => q.Domaines))];
+    console.log("Domaines disponibles:", domaines);
     
     domaines.forEach(domaine => {
         const option = document.createElement('option');
@@ -36,6 +43,36 @@ function initDomaines() {
         option.textContent = domaine;
         domaineSelect.appendChild(option);
     });
+    
+    domaineSelect.addEventListener('change', function() {
+        selectedDomain = this.value;
+        console.log("Domaine sélectionné:", selectedDomain); // Debug
+        updateThemes();
+    });
+}
+
+// Mettre à jour les thèmes
+function updateThemes() {
+    const themeSelect = document.getElementById('theme-select');
+    themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
+    
+    if (!selectedDomain) return;
+    
+    const themes = [...new Set(
+        questionsData
+            .filter(q => q.Domaines === selectedDomain)
+            .map(q => q["Thèmes"])
+    )];
+    
+    console.log("Thèmes disponibles pour", selectedDomain, ":", themes); // Debug
+    
+    themes.forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme;
+        themeSelect.appendChild(option);
+    });
+}
     
     domaineSelect.addEventListener('change', function() {
         selectedDomain = this.value;
@@ -109,6 +146,8 @@ function loadNextQuestion() {
 function displayQuestion() {
     const quizContainer = document.getElementById('question-container');
     
+    console.log("Affichage question:", currentQuestion); // Debug
+    
     const propositions = {
         A: currentQuestion["Proposition (A)"] || "",
         B: currentQuestion["Proposition (B)"] || "",
@@ -119,7 +158,7 @@ function displayQuestion() {
     const validPropositions = Object.entries(propositions)
         .filter(([_, value]) => value.trim() !== "");
 
-    quizContainer.innerHTML = 
+    quizContainer.innerHTML = `
         <div class="progress-container">
             <div class="progress-bar">Question ${currentQuestionNumber}/${filteredQuestions.length}</div>
             <div class="score-display">Score: ${score}</div>
@@ -127,20 +166,20 @@ function displayQuestion() {
         
         <div class="question-header">
             <span class="badge domaine">${currentQuestion.Domaines}</span>
-            <span class="badge theme">${currentQuestion["Thèmes"]}</span> <!-- Correction : sans accent -->
+            <span class="badge theme">${currentQuestion["Thèmes"]}</span>
             <span class="badge niveau">Niveau ${currentQuestion["Niveau de question"]}</span>
         </div>
 
         <h3>${currentQuestion["Question"]}</h3>
 
         <div class="options">
-            ${validPropositions.map(([key, value]) => 
+            ${validPropositions.map(([key, value]) => `
                 <button onclick="checkAnswer('${key}')" class="option-btn">
                     <span class="option-key">${key}</span>: ${value}
                 </button>
-            ).join('')}
+            `).join('')}
         </div>
-    ;
+    `;
 }
 
 // Vérifier la réponse
