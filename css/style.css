@@ -13,17 +13,7 @@
     position: relative;
     min-height: 100vh;
   }
-  
-  /* Logo */
-  #sap4fun-logo {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    height: 80px;
-    z-index: 1000;
-}
-
-  
+   
   /* Configuration */
   #config {
     text-align: center;
