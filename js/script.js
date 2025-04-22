@@ -9,7 +9,7 @@ let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
 
 //logo SAP4Fun
-
+<img src="data/Logo_SAP4Fun.png" alt="Logo SAP4Fun" id="sap4fun-logo">
 //<img src="data/Logo_SAP4Fun.png" alt="Logo SAP4Fun" id="sap4fun-logo">
 
 // Charger les questions
