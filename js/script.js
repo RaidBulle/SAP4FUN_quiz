@@ -16,7 +16,7 @@ function loadQuestions() {
             return response.json();
         })
         .then(data => {
-            console.log("Questions chargées:", data); // Debug
+            console.log("Questions chargées:", data);
             questionsData = data;
             initDomaines();
         })
@@ -29,24 +29,20 @@ function loadQuestions() {
 // Initialiser les domaines
 function initDomaines() {
     const domaineSelect = document.getElementById('domaine-select');
-    
-    // Vider le select avant de le remplir
     domaineSelect.innerHTML = '<option value="">Sélectionnez un domaine</option>';
-    
-    // Debug: Vérifier les domaines disponibles
+
     const domaines = [...new Set(questionsData.map(q => q.Domaines))];
     console.log("Domaines disponibles:", domaines);
-    
+
     domaines.forEach(domaine => {
         const option = document.createElement('option');
         option.value = domaine;
         option.textContent = domaine;
         domaineSelect.appendChild(option);
     });
-    
+
     domaineSelect.addEventListener('change', function() {
         selectedDomain = this.value;
-        console.log("Domaine sélectionné:", selectedDomain); // Debug
         updateThemes();
     });
 }
@@ -55,45 +51,18 @@ function initDomaines() {
 function updateThemes() {
     const themeSelect = document.getElementById('theme-select');
     themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
-    
+
     if (!selectedDomain) return;
-    
+
     const themes = [...new Set(
         questionsData
             .filter(q => q.Domaines === selectedDomain)
             .map(q => q["Thèmes"])
     )];
-    
-    console.log("Thèmes disponibles pour", selectedDomain, ":", themes); // Debug
-    
-    themes.forEach(theme => {
-        const option = document.createElement('option');
-        option.value = theme;
-        option.textContent = theme;
-        themeSelect.appendChild(option);
-    });
-}
-    
-    domaineSelect.addEventListener('change', function() {
-        selectedDomain = this.value;
-        updateThemes(); // Correction : sans accent
-    });
-}
 
-// Mettre à jour les thèmes
-function updateThemes() { // Correction : sans accent
-    const themeSelect = document.getElementById('theme-select'); // Correction : sans accent
-    themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
-    
-    if (!selectedDomain) return;
-    
-    const themes = [...new Set( // Correction : sans accent
-        questionsData
-            .filter(q => q.Domaines === selectedDomain)
-            .map(q => q["Thèmes"]) // Doit correspondre exactement au champ dans le JSON
-    )];
-    
-    themes.forEach(theme => { // Correction : sans accent
+    console.log("Thèmes disponibles pour", selectedDomain, ":", themes);
+
+    themes.forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
         option.textContent = theme;
@@ -103,8 +72,8 @@ function updateThemes() { // Correction : sans accent
 
 // Démarrer le quiz
 function startQuiz() {
-    selectedTheme = document.getElementById('theme-select').value; // Correction : sans accent
-    
+    selectedTheme = document.getElementById('theme-select').value;
+
     if (!selectedDomain || !selectedTheme) {
         alert("Veuillez sélectionner un domaine et un thème !");
         return;
@@ -112,9 +81,9 @@ function startQuiz() {
 
     score = 0;
     currentQuestionNumber = 0;
-    
+
     filteredQuestions = questionsData
-        .filter(q => q.Domaines === selectedDomain && q["Thèmes"] === selectedTheme) // Correction : sans accent
+        .filter(q => q.Domaines === selectedDomain && q["Thèmes"] === selectedTheme)
         .sort(() => 0.5 - Math.random())
         .slice(0, MAX_QUESTIONS);
 
@@ -145,16 +114,14 @@ function loadNextQuestion() {
 // Afficher la question
 function displayQuestion() {
     const quizContainer = document.getElementById('question-container');
-    
-    console.log("Affichage question:", currentQuestion); // Debug
-    
+
     const propositions = {
         A: currentQuestion["Proposition (A)"] || "",
         B: currentQuestion["Proposition (B)"] || "",
         C: currentQuestion["Proposition (C)"] || "",
         D: currentQuestion["Proposition (D)"] || ""
     };
-    
+
     const validPropositions = Object.entries(propositions)
         .filter(([_, value]) => value.trim() !== "");
 
@@ -163,7 +130,7 @@ function displayQuestion() {
             <div class="progress-bar">Question ${currentQuestionNumber}/${filteredQuestions.length}</div>
             <div class="score-display">Score: ${score}</div>
         </div>
-        
+
         <div class="question-header">
             <span class="badge domaine">${currentQuestion.Domaines}</span>
             <span class="badge theme">${currentQuestion["Thèmes"]}</span>
@@ -186,29 +153,28 @@ function displayQuestion() {
 function checkAnswer(selectedKey) {
     const isCorrect = selectedKey === currentQuestion["Bonne réponse"];
     const points = parseInt(currentQuestion["Niveau de question"]);
-    
+
     if (isCorrect) {
         score += points;
         updateScoreDisplay();
     }
 
     const correctAnswer = currentQuestion["Bonne réponse"];
-    const correctText = currentQuestion[Proposition (${correctAnswer})];
-    
+    const correctText = currentQuestion[`Proposition (${correctAnswer})`];
+
     const feedback = document.createElement('div');
-    feedback.className = feedback ${isCorrect ? 'correct' : 'incorrect'};
-    feedback.innerHTML = 
+    feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+    feedback.innerHTML = `
         <h4>${isCorrect ? '✅ Correct !' : '❌ Faux'}</h4>
-        ${!isCorrect ? 
+        ${!isCorrect ? `
             <p><strong>La bonne réponse était :</strong> 
-            <span class="correct-answer">${correctAnswer}) ${correctText}</span></p>
-         : ''}
-        ${currentQuestion.commentaires ? <p><strong>Explication :</strong> ${currentQuestion.commentaires}</p> : ''}
-        <p>${isCorrect ? +${points} points : '0 point'}</p>
+            <span class="correct-answer">${correctAnswer}) ${correctText}</span></p>` : ''}
+        ${currentQuestion.commentaires ? `<p><strong>Explication :</strong> ${currentQuestion.commentaires}</p>` : ''}
+        <p>${isCorrect ? `+${points} points` : '0 point'}</p>
         <button onclick="loadNextQuestion()" class="btn-primary">
             ${currentQuestionNumber < filteredQuestions.length ? 'Question suivante' : 'Voir les résultats'}
         </button>
-    ;
+    `;
 
     document.getElementById('question-container').appendChild(feedback);
     document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
@@ -217,22 +183,22 @@ function checkAnswer(selectedKey) {
 // Afficher les résultats finaux
 function showFinalResults() {
     const maxScore = filteredQuestions.reduce((sum, q) => sum + parseInt(q["Niveau de question"]), 0);
-    
-    document.getElementById('quiz-interface').innerHTML = 
+
+    document.getElementById('quiz-interface').innerHTML = `
         <div class="results-container">
             <h2>Résultats du Quiz</h2>
             <div class="final-score">Score final: ${score}/${maxScore}</div>
-            <div class="max-score">${Math.round((score/maxScore)*100)}% de bonnes réponses</div>
+            <div class="max-score">${Math.round((score / maxScore) * 100)}% de bonnes réponses</div>
             <button onclick="location.reload()" class="btn-primary">Recommencer</button>
         </div>
-    ;
+    `;
 }
 
 // Mettre à jour la barre de progression
 function updateProgressBar() {
     const progressBar = document.querySelector('.progress-bar');
     if (progressBar) {
-        progressBar.textContent = Question ${currentQuestionNumber}/${filteredQuestions.length};
+        progressBar.textContent = `Question ${currentQuestionNumber}/${filteredQuestions.length}`;
     }
 }
 
@@ -240,7 +206,7 @@ function updateProgressBar() {
 function updateScoreDisplay() {
     const scoreDisplay = document.querySelector('.score-display');
     if (scoreDisplay) {
-        scoreDisplay.textContent = Score: ${score};
+        scoreDisplay.textContent = `Score: ${score}`;
     }
 }
 
