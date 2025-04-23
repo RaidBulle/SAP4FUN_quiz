@@ -7,6 +7,7 @@ let selectedTheme = '';
 let filteredQuestions = [];
 let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
+let selectedAnswers = new Set();
 
 // Charger les questions
 function loadQuestions() {
@@ -37,7 +38,7 @@ function initDomaines() {
         option.textContent = domaine;
         domaineSelect.appendChild(option);
     });
-    domaineSelect.addEventListener('change', function () {
+    domaineSelect.addEventListener('change', function() {
         selectedDomain = this.value;
         updateThemes();
     });
@@ -49,9 +50,7 @@ function updateThemes() {
     themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
     if (!selectedDomain) return;
     const themes = [...new Set(
-        questionsData
-            .filter(q => q.Domaines === selectedDomain)
-            .map(q => q["Thèmes"])
+        questionsData.filter(q => q.Domaines === selectedDomain).map(q => q["Thèmes"])
     )];
     themes.forEach(theme => {
         const option = document.createElement('option');
@@ -86,6 +85,7 @@ function startQuiz() {
 
 // Charger la question suivante
 function loadNextQuestion() {
+    selectedAnswers.clear();
     if (currentQuestionNumber >= filteredQuestions.length) {
         showFinalResults();
         return;
@@ -106,6 +106,7 @@ function displayQuestion() {
         D: currentQuestion["Proposition (D)"] || ""
     };
     const validPropositions = Object.entries(propositions).filter(([_, value]) => value.trim() !== "");
+    const isMultiple = currentQuestion["Bonne réponse"].includes(',');
     quizContainer.innerHTML = `
         <div class="progress-container">
             <div class="progress-bar">Question ${currentQuestionNumber}/${filteredQuestions.length}</div>
@@ -117,45 +118,55 @@ function displayQuestion() {
             <span class="badge niveau">Niveau ${currentQuestion["Niveau de question"]}</span>
         </div>
         <h3>${currentQuestion["Question"]}</h3>
-        <form id="answer-form" class="options">
+        <div class="options">
             ${validPropositions.map(([key, value]) => `
-                <label><input type="checkbox" name="answer" value="${key}"> <strong>${key}</strong>: ${value}</label>
-            `).join('<br>')}
-        </form>
-        <button onclick="submitAnswers()" class="btn-primary">Valider</button>
+                <button onclick="selectAnswer('${key}', ${isMultiple})" class="option-btn" id="btn-${key}">
+                    <span class="option-key">${key}</span>: ${value}
+                </button>
+            `).join('')}
+        </div>
+        <button onclick="checkAnswer()" class="btn-primary">Valider</button>
     `;
 }
 
+// Sélection d'une réponse
+function selectAnswer(key, isMultiple) {
+    const btn = document.getElementById(`btn-${key}`);
+    if (!isMultiple) {
+        selectedAnswers.clear();
+        document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    }
+    if (selectedAnswers.has(key)) {
+        selectedAnswers.delete(key);
+        btn.classList.remove('selected');
+    } else {
+        selectedAnswers.add(key);
+        btn.classList.add('selected');
+    }
+}
+
 // Vérifier la réponse
-function submitAnswers() {
-    const form = document.getElementById('answer-form');
-    const selectedOptions = Array.from(form.querySelectorAll('input[name="answer"]:checked')).map(input => input.value);
-
-    const rawAnswers = currentQuestion["Bonne réponse"];
-    const correctAnswers = typeof rawAnswers === 'string'
-        ? rawAnswers.split(',').map(s => s.trim())
-        : Array.isArray(rawAnswers) ? rawAnswers : [rawAnswers];
-
-    const isCorrect = selectedOptions.length === correctAnswers.length && selectedOptions.every(val => correctAnswers.includes(val));
+function checkAnswer() {
+    const correctAnswers = currentQuestion["Bonne réponse"].split(',').map(a => a.trim());
     const points = parseInt(currentQuestion["Niveau de question"]);
+    const isCorrect = correctAnswers.length === selectedAnswers.size && correctAnswers.every(a => selectedAnswers.has(a));
     if (isCorrect) {
         score += points;
         updateScoreDisplay();
     }
-
     const feedback = document.createElement('div');
     feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
     feedback.innerHTML = `
         <h4>${isCorrect ? '✅ Correct !' : '❌ Faux'}</h4>
-        ${!isCorrect ? `<p><strong>Bonne(s) réponse(s) :</strong> ${correctAnswers.join(', ')}</p>` : ''}
+        ${!isCorrect ? `<p><strong>Bonne(s) réponse(s):</strong> ${correctAnswers.join(', ')}</p>` : ''}
         ${currentQuestion.commentaires ? `<p><strong>Explication :</strong> ${currentQuestion.commentaires}</p>` : ''}
         <p>${isCorrect ? '+' + points + ' points' : '0 point'}</p>
         <button onclick="loadNextQuestion()" class="btn-primary">
             ${currentQuestionNumber < filteredQuestions.length ? 'Question suivante' : 'Voir les résultats'}
         </button>
     `;
-    form.appendChild(feedback);
-    form.querySelectorAll('input[name="answer"]').forEach(input => input.disabled = true);
+    document.getElementById('question-container').appendChild(feedback);
+    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
 }
 
 // Résultats finaux
