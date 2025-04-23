@@ -141,7 +141,7 @@ function selectAnswer(key, isMultiple) {
         btn.classList.remove('selected');
     } else {
         selectedAnswers.add(key);
-        btn.classList.add('selected');
+      
     }
 }
 
