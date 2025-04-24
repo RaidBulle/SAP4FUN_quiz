@@ -8,7 +8,7 @@ let filteredQuestions = [];
 let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
 let selectedAnswers = new Set();
-const validatedQuestions = new Set(); // Suivi des questions validées
+const validatedQuestions = new Set();
 
 // Charger les questions
 function loadQuestions() {
@@ -18,7 +18,6 @@ function loadQuestions() {
             return response.json();
         })
         .then(data => {
-            console.log("Questions chargées:", data);
             questionsData = data;
             initDomaines();
         })
@@ -30,25 +29,23 @@ function loadQuestions() {
 
 // Vérifier la réponse
 function checkAnswer() {
-    // Vérifiez si la question actuelle a déjà été validée
     if (validatedQuestions.has(currentQuestionNumber)) {
         alert("Vous avez déjà validé cette question !");
         return;
     }
 
-    // Ajoutez la question au suivi des questions validées
     validatedQuestions.add(currentQuestionNumber);
-
-    // Désactiver le bouton "Valider" pour empêcher les clics multiples
     document.querySelector('.btn-primary').disabled = true;
 
     const correctAnswers = currentQuestion["Bonne réponse"].split(',').map(a => a.trim());
     const points = parseInt(currentQuestion["Niveau de question"]);
     const isCorrect = correctAnswers.length === selectedAnswers.size && correctAnswers.every(a => selectedAnswers.has(a));
+
     if (isCorrect) {
         score += points;
         updateScoreDisplay();
     }
+
     const feedback = document.createElement('div');
     feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
     feedback.innerHTML = `
@@ -69,13 +66,15 @@ function initDomaines() {
     const domaineSelect = document.getElementById('domaine-select');
     domaineSelect.innerHTML = '<option value="">Sélectionnez un domaine</option>';
     const domaines = [...new Set(questionsData.map(q => q.Domaines))];
+
     domaines.forEach(domaine => {
         const option = document.createElement('option');
         option.value = domaine;
         option.textContent = domaine;
         domaineSelect.appendChild(option);
     });
-    domaineSelect.addEventListener('change', function() {
+
+    domaineSelect.addEventListener('change', function () {
         selectedDomain = this.value;
         updateThemes();
     });
@@ -86,9 +85,11 @@ function updateThemes() {
     const themeSelect = document.getElementById('theme-select');
     themeSelect.innerHTML = '<option value="">Sélectionnez un thème</option>';
     if (!selectedDomain) return;
+
     const themes = [...new Set(
         questionsData.filter(q => q.Domaines === selectedDomain).map(q => q["Thèmes"])
     )];
+
     themes.forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
@@ -104,16 +105,22 @@ function startQuiz() {
         alert("Veuillez sélectionner un domaine et un thème !");
         return;
     }
+
     score = 0;
     currentQuestionNumber = 0;
+    selectedAnswers.clear();
+    validatedQuestions.clear();
+
     filteredQuestions = questionsData
         .filter(q => q.Domaines === selectedDomain && q["Thèmes"] === selectedTheme)
         .sort(() => 0.5 - Math.random())
         .slice(0, MAX_QUESTIONS);
+
     if (filteredQuestions.length === 0) {
         alert("Aucune question disponible pour cette combinaison.");
         return;
     }
+
     document.getElementById('config').classList.add('hidden');
     document.getElementById('quiz-interface').classList.remove('hidden');
     updateScoreDisplay();
@@ -142,8 +149,10 @@ function displayQuestion() {
         C: currentQuestion["Proposition (C)"] || "",
         D: currentQuestion["Proposition (D)"] || ""
     };
+
     const validPropositions = Object.entries(propositions).filter(([_, value]) => value.trim() !== "");
     const isMultiple = currentQuestion["Bonne réponse"].includes(',');
+
     quizContainer.innerHTML = `
         <div class="progress-container">
             <div class="progress-bar">Question ${currentQuestionNumber}/${filteredQuestions.length}</div>
@@ -173,6 +182,7 @@ function selectAnswer(key, isMultiple) {
         selectedAnswers.clear();
         document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
     }
+
     if (selectedAnswers.has(key)) {
         selectedAnswers.delete(key);
         btn.classList.remove('selected');
@@ -182,7 +192,7 @@ function selectAnswer(key, isMultiple) {
     }
 }
 
-// Résultats finaux
+// Affichage des résultats finaux
 function showFinalResults() {
     const maxScore = filteredQuestions.reduce((sum, q) => sum + parseInt(q["Niveau de question"]), 0);
     document.getElementById('quiz-interface').innerHTML = `
@@ -194,5 +204,3 @@ function showFinalResults() {
         </div>
     `;
 }
-
-// Met
