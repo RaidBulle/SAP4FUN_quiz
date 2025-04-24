@@ -27,6 +27,33 @@ function loadQuestions() {
         });
 }
 
+// Vérifier la réponse
+function checkAnswer() {
+    // Désactiver le bouton "Valider" pour empêcher les clics multiples
+    document.querySelector('.btn-primary').disabled = true;
+
+    const correctAnswers = currentQuestion["Bonne réponse"].split(',').map(a => a.trim());
+    const points = parseInt(currentQuestion["Niveau de question"]);
+    const isCorrect = correctAnswers.length === selectedAnswers.size && correctAnswers.every(a => selectedAnswers.has(a));
+    if (isCorrect) {
+        score += points;
+        updateScoreDisplay();
+    }
+    const feedback = document.createElement('div');
+    feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+    feedback.innerHTML = `
+        <h4>${isCorrect ? '✅ Correct !' : '❌ Faux'}</h4>
+        ${!isCorrect ? `<p><strong>Bonne(s) réponse(s):</strong> ${correctAnswers.join(', ')}</p>` : ''}
+        ${currentQuestion.commentaires ? `<p><strong>Explication :</strong> ${currentQuestion.commentaires}</p>` : ''}
+        <p>${isCorrect ? '+' + points + ' points' : '0 point'}</p>
+        <button onclick="loadNextQuestion()" class="btn-primary">
+            ${currentQuestionNumber < filteredQuestions.length ? 'Question suivante' : 'Voir les résultats'}
+        </button>
+    `;
+    document.getElementById('question-container').appendChild(feedback);
+    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+}
+
 // Initialiser les domaines
 function initDomaines() {
     const domaineSelect = document.getElementById('domaine-select');
