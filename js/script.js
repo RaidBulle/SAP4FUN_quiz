@@ -8,6 +8,7 @@ let filteredQuestions = [];
 let currentQuestionNumber = 0;
 const MAX_QUESTIONS = 10;
 let selectedAnswers = new Set();
+const validatedQuestions = new Set(); // Suivi des questions validées
 
 // Charger les questions
 function loadQuestions() {
@@ -29,6 +30,15 @@ function loadQuestions() {
 
 // Vérifier la réponse
 function checkAnswer() {
+    // Vérifiez si la question actuelle a déjà été validée
+    if (validatedQuestions.has(currentQuestionNumber)) {
+        alert("Vous avez déjà validé cette question !");
+        return;
+    }
+
+    // Ajoutez la question au suivi des questions validées
+    validatedQuestions.add(currentQuestionNumber);
+
     // Désactiver le bouton "Valider" pour empêcher les clics multiples
     document.querySelector('.btn-primary').disabled = true;
 
@@ -168,32 +178,8 @@ function selectAnswer(key, isMultiple) {
         btn.classList.remove('selected');
     } else {
         selectedAnswers.add(key);
-      
+        btn.classList.add('selected');
     }
-}
-
-// Vérifier la réponse
-function checkAnswer() {
-    const correctAnswers = currentQuestion["Bonne réponse"].split(',').map(a => a.trim());
-    const points = parseInt(currentQuestion["Niveau de question"]);
-    const isCorrect = correctAnswers.length === selectedAnswers.size && correctAnswers.every(a => selectedAnswers.has(a));
-    if (isCorrect) {
-        score += points;
-        updateScoreDisplay();
-    }
-    const feedback = document.createElement('div');
-    feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-    feedback.innerHTML = `
-        <h4>${isCorrect ? '✅ Correct !' : '❌ Faux'}</h4>
-        ${!isCorrect ? `<p><strong>Bonne(s) réponse(s):</strong> ${correctAnswers.join(', ')}</p>` : ''}
-        ${currentQuestion.commentaires ? `<p><strong>Explication :</strong> ${currentQuestion.commentaires}</p>` : ''}
-        <p>${isCorrect ? '+' + points + ' points' : '0 point'}</p>
-        <button onclick="loadNextQuestion()" class="btn-primary">
-            ${currentQuestionNumber < filteredQuestions.length ? 'Question suivante' : 'Voir les résultats'}
-        </button>
-    `;
-    document.getElementById('question-container').appendChild(feedback);
-    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
 }
 
 // Résultats finaux
@@ -209,49 +195,4 @@ function showFinalResults() {
     `;
 }
 
-// Mettre à jour la barre de progression
-function updateProgressBar() {
-    const progressBar = document.querySelector('.progress-bar');
-    if (progressBar) {
-        progressBar.textContent = `Question ${currentQuestionNumber}/${filteredQuestions.length}`;
-    }
-}
-
-// Exemple de tableau pour suivre les questions validées
-const validatedQuestions = new Set();
-
-// Fonction appelée lorsque le bouton "Valider" est cliqué
-function validerQuestion(questionId) {
-    // Vérifiez si la question a déjà été validée
-    if (validatedQuestions.has(questionId)) {
-        alert("Cette question a déjà été validée !");
-        return;
-    }
-
-    // Ajoutez la question à l'ensemble des questions validées
-    validatedQuestions.add(questionId);
-
-    // Incrémentez le score ou effectuez l'action nécessaire
-    incrementerScore();
-}
-
-function incrementerScore() {
-    // Exemple d'incrémentation de score
-    let scoreElement = document.getElementById("score");
-    let score = parseInt(scoreElement.textContent, 10);
-    scoreElement.textContent = score + 1;
-}
-
-// Mettre à jour l'affichage du score
-function updateScoreDisplay() {
-    const scoreDisplay = document.querySelector('.score-display');
-    if (scoreDisplay) {
-        scoreDisplay.textContent = `Score: ${score}`;
-    }
-}
-
-// Initialisation
-document.addEventListener('DOMContentLoaded', () => {
-    loadQuestions();
-    document.getElementById('start-btn').addEventListener('click', startQuiz);
-});
+// Met
