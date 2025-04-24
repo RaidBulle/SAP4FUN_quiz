@@ -217,6 +217,31 @@ function updateProgressBar() {
     }
 }
 
+// Exemple de tableau pour suivre les questions validées
+const validatedQuestions = new Set();
+
+// Fonction appelée lorsque le bouton "Valider" est cliqué
+function validerQuestion(questionId) {
+    // Vérifiez si la question a déjà été validée
+    if (validatedQuestions.has(questionId)) {
+        alert("Cette question a déjà été validée !");
+        return;
+    }
+
+    // Ajoutez la question à l'ensemble des questions validées
+    validatedQuestions.add(questionId);
+
+    // Incrémentez le score ou effectuez l'action nécessaire
+    incrementerScore();
+}
+
+function incrementerScore() {
+    // Exemple d'incrémentation de score
+    let scoreElement = document.getElementById("score");
+    let score = parseInt(scoreElement.textContent, 10);
+    scoreElement.textContent = score + 1;
+}
+
 // Mettre à jour l'affichage du score
 function updateScoreDisplay() {
     const scoreDisplay = document.querySelector('.score-display');
