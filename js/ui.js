@@ -1,9 +1,16 @@
 import { createElement, clearElement, disableElements, enableElements } from './dom-utils.js';
+import { startQuiz } from './quiz.js'; // Ajout de l'import manquant
 
 export function initUI(questions) {
     const domainSelect = document.getElementById('domain-select');
     const themeSelect = document.getElementById('theme-select');
     const startBtn = document.getElementById('start-btn');
+    
+    // Vérifier que les éléments existent
+    if (!domainSelect || !themeSelect || !startBtn) {
+        console.error("Certains éléments de l'interface n'ont pas été trouvés");
+        return;
+    }
     
     populateDomainDropdown(domainSelect, questions);
     
@@ -27,6 +34,9 @@ export function initUI(questions) {
 }
 
 function populateDomainDropdown(selectElement, questions) {
+    // Vérifier que l'élément existe
+    if (!selectElement) return;
+    
     clearElement(selectElement);
     
     const domains = [...new Set(questions.map(q => q.domain))].sort();
@@ -47,6 +57,9 @@ function populateDomainDropdown(selectElement, questions) {
 }
 
 function populateThemeDropdown(selectElement, questions, domain) {
+    // Vérifier que l'élément existe
+    if (!selectElement) return;
+    
     clearElement(selectElement);
     
     const themes = [...new Set(questions
