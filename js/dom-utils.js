@@ -23,15 +23,22 @@ export function createElement(tag, attributes = {}, children = []) {
 }
 
 export function clearElement(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
+    // Vérifier si l'élément existe avant d'essayer d'accéder à ses propriétés
+    if (element) {
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
     }
 }
 
 export function disableElements(...elements) {
-    elements.forEach(el => el.disabled = true);
+    elements.forEach(el => {
+        if (el) el.disabled = true;
+    });
 }
 
 export function enableElements(...elements) {
-    elements.forEach(el => el.disabled = false);
+    elements.forEach(el => {
+        if (el) el.disabled = false;
+    });
 }
