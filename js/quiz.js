@@ -49,11 +49,21 @@ let quizInstance = null;
 
 export function startQuiz(domain, theme, questions) {
     const filteredQuestions = questions.filter(q => 
-        q.domain === domain && q.theme === theme
+        q.domain === domain && (q.theme === theme || theme === "tous")
     );
 
     if (filteredQuestions.length === 0) {
         throw new Error("Aucune question disponible pour cette combinaison domaine/thème");
+    }
+
+    // Masquer le conteneur de configuration et afficher le conteneur de quiz
+    const configContainer = document.getElementById('config-container');
+    const quizContainer = document.getElementById('quiz-container');
+    
+    if (configContainer) configContainer.style.display = 'none';
+    if (quizContainer) {
+        quizContainer.style.display = 'block';
+        quizContainer.classList.remove('hidden');
     }
 
     quizInstance = new Quiz(filteredQuestions);
@@ -87,7 +97,9 @@ function showNextQuestion() {
 
 function showFeedback(isCorrect, correctAnswer) {
     const feedbackEl = document.getElementById('feedback');
-    feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+    if (!feedbackEl) return;
+    
+    feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'} show`;
     
     feedbackEl.innerHTML = isCorrect
         ? '✅ Bonne réponse!'
@@ -95,18 +107,27 @@ function showFeedback(isCorrect, correctAnswer) {
 }
 
 function clearFeedback() {
-    document.getElementById('feedback').className = 'feedback';
-    document.getElementById('feedback').innerHTML = '';
+    const feedbackEl = document.getElementById('feedback');
+    if (!feedbackEl) return;
+    
+    feedbackEl.className = 'feedback';
+    feedbackEl.innerHTML = '';
 }
 
 function updateProgress() {
     if (!quizInstance) return;
     
     const progress = quizInstance.getProgress();
-    document.getElementById('progress-counter').textContent = 
-        `${progress.current}/${progress.total}`;
-    document.getElementById('score-counter').textContent = 
-        `${progress.score}`;
+    const progressCounter = document.getElementById('progress-counter');
+    const scoreCounter = document.getElementById('score-counter');
+    
+    if (progressCounter) {
+        progressCounter.textContent = `${progress.current}/${progress.total}`;
+    }
+    
+    if (scoreCounter) {
+        scoreCounter.textContent = `Score: ${progress.score}`;
+    }
 }
 
 function showFinalResults() {
@@ -114,6 +135,9 @@ function showFinalResults() {
     
     const progress = quizInstance.getProgress();
     const container = document.getElementById('quiz-container');
+    
+    if (!container) return;
+    
     container.innerHTML = `
         <div class="results-container">
             <h2>Quiz terminé!</h2>
@@ -123,7 +147,10 @@ function showFinalResults() {
         </div>
     `;
     
-    document.getElementById('restart-btn').addEventListener('click', () => {
-        startQuiz(quizInstance.questions[0].domain, quizInstance.questions[0].theme, quizInstance.questions);
-    });
+    const restartBtn = document.getElementById('restart-btn');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', () => {
+            location.reload(); // Recharger la page pour recommencer
+        });
+    }
 }
