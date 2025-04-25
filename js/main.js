@@ -13,7 +13,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     populateThemeDropdown(themeSelect, selectedDomain);
   });
 
-  // Tu peux ajouter ici le reste : affichage des questions, etc.
+import { startQuiz } from './quiz.js';
+
+themeSelect.addEventListener('change', () => {
+  const selectedDomain = domainSelect.value;
+  const selectedTheme = themeSelect.value;
+  startQuiz(selectedDomain, selectedTheme);
+});
+
 });
 
 
