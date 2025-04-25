@@ -1,208 +1,267 @@
-/* Reset et base */
+:root {
+    --primary-color: #2196F3;
+    --primary-dark: #0b7dda;
+    --success-color: #4CAF50;
+    --error-color: #f44336;
+    --warning-color: #ff9800;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Base */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-  }
-    .sap4fun-logo {
-  position: absolute;
-  height: 80px;
-  z-index: 1000;
 }
 
-#sap4fun-logo {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 150px;
-  height: 150px;
-  background-image: url('RaidBulle/SAP4FUN_quiz/images/Logo_SAP4Fun.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 100;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+    padding: 20px;
+}
+
+#app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+/* Loader */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Configuration */
+.config-form {
+    padding: 2rem;
+}
+
+.select-group {
+    margin-bottom: 1.5rem;
+}
+
+.select-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.select-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.select-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Quiz Interface */
+#quiz-container {
+    padding: 2rem;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+/* Question Card */
+.question-card {
+    margin-bottom: 2rem;
+}
+
+.question-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.domain-badge {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+.theme-badge {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.level-badge {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.question-text {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+/* Options */
+.options-container {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.option-btn {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: var(--border-radius);
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.option-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
 }
 
 .option-btn.selected {
-  background-color: #bbdefb;
-  border-color: #64b5f6;
+    background-color: #e3f2fd;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
 }
-   body {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    min-height: 100vh;
-  }
-   
-  /* Configuration */
-  #config {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  .select-group {
-    margin: 15px 0;
-    text-align: left;
-  }
-  
-  .select-group label {
-    display: block;
-    margin-bottom: 5px;
+
+.option-key {
     font-weight: bold;
-  }
-  
-  .select-group select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-  }
-  
-  /* Boutons */
-  .btn-primary {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    margin-top: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-  }
-  
-  .btn-primary:hover {
-    background: #0b7dda;
-  }
-  
-  /* Interface Quiz */
-  #quiz-interface {
-    margin-top: 30px;
-  }
-  
-  .question-header {
-    margin-bottom: 15px;
-  }
-  
-  .badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    margin-right: 5px;
-  }
-  
-  .domaine { background: #e3f2fd; color: #0d47a1; }
-  .thème { background: #e8f5e9; color: #2e7d32; }
-  .niveau { background: #fff3e0; color: #e65100; }
-  
-  /* Options */
-  .options {
-    margin: 20px 0;
-  }
-  
-  .option-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    text-align: left;
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .option-btn:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-  }
-  
-  .option-key {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  /* Barre de progression et score */
-  .progress-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .progress-bar {
-    background: #f0f0f0;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-  }
-  
-  .score-display {
-    background: #4CAF50;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-  }
-  
-  /* Feedback */
-  .feedback {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 5px;
-  }
-  
-  .correct {
+    color: var(--primary-color);
+}
+
+/* Feedback */
+.feedback {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.feedback.show {
+    opacity: 1;
+}
+
+.feedback.correct {
     background-color: #e6ffed;
-    border-left: 4px solid #4CAF50;
-  }
-  
-  .incorrect {
+    border-left: 4px solid var(--success-color);
+}
+
+.feedback.incorrect {
     background-color: #ffebee;
-    border-left: 4px solid #f44336;
-  }
-  
-  .correct-answer {
-    color: #4CAF50;
+    border-left: 4px solid var(--error-color);
+}
+
+.correct-answer {
+    color: var(--success-color);
     font-weight: bold;
-  }
-  
-  /* Résultats finaux */
-  .results-container {
+}
+
+/* Results */
+.results-container {
+    padding: 2rem;
     text-align: center;
-    padding: 20px;
-  }
-  
-  .final-score {
-    font-size: 24px;
+}
+
+.final-score {
+    font-size: 2rem;
     font-weight: bold;
-    margin: 20px 0;
-  }
-  
-  .max-score {
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  /* Utilitaires */
-  .hidden {
-    display: none;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .sap4fun-logo {
-      width: 100px;
-      height: 100px;
-      top: 10px;
-      right: 10px;
+    margin: 1rem 0;
+    color: var(--primary-color);
+}
+
+.percentage {
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
     }
     
-    body {
-      padding: 15px;
+    #app-container {
+        border-radius: 0;
     }
-  }
+    
+    .config-form, #quiz-container {
+        padding: 1rem;
+    }
+    
+    .question-text {
+        font-size: 1.1rem;
+    }
+}
