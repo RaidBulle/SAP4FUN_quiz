@@ -1,11 +1,18 @@
-import { loadQuestions, getUniqueDomains } from './data-loader.js';
+import { loadQuestions } from './data-loader.js';
 import { initUI } from './ui.js';
 import './events.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        const appContainer = document.getElementById('app-container');
+        
+        // Vérifier que l'élément app-container existe
+        if (!appContainer) {
+            throw new Error("L'élément #app-container n'a pas été trouvé");
+        }
+        
         // Afficher un loader pendant le chargement
-        document.getElementById('app-container').innerHTML = `
+        appContainer.innerHTML = `
             <div class="loader-container">
                 <div class="loader"></div>
                 <p>Chargement des questions...</p>
@@ -18,10 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error("Aucune question valide n'a été chargée");
         }
         
-        initUI(questions);
-        
-        // Cacher le loader et afficher l'interface
-        document.getElementById('app-container').innerHTML = `
+        // Injecter le HTML de l'interface
+        appContainer.innerHTML = `
             <div id="config-container">
                 <h1>Quiz SAP</h1>
                 <div class="config-form">
@@ -46,17 +51,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
         `;
         
-        // Réinitialiser l'UI avec les questions chargées
-        initUI(questions);
+        // Attendre que le DOM soit mis à jour avant d'initialiser l'UI
+        setTimeout(() => {
+            // Réinitialiser l'UI avec les questions chargées
+            initUI(questions);
+        }, 0);
         
     } catch (error) {
         console.error("Erreur d'initialisation:", error);
-        document.getElementById('app-container').innerHTML = `
-            <div class="error-container">
-                <h2>Erreur de chargement</h2>
-                <p>${error.message}</p>
-                <button onclick="window.location.reload()">Réessayer</button>
-            </div>
-        `;
+        const appContainer = document.getElementById('app-container');
+        if (appContainer) {
+            appContainer.innerHTML = `
+                <div class="error-container">
+                    <h2>Erreur de chargement</h2>
+                    <p>${error.message}</p>
+                    <button onclick="window.location.reload()">Réessayer</button>
+                </div>
+            `;
+        }
     }
 });
