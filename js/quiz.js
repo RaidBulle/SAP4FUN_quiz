@@ -1,44 +1,129 @@
-import { questionsData } from './dataLoader.js';
-import { renderQuestion } from './questionRenderer.js';
+import { renderQuestion } from './question-renderer.js';
 
-let filteredQuestions = [];
-let currentQuestion = null;
+class Quiz {
+    constructor(questions) {
+        this.questions = questions;
+        this.currentQuestionIndex = -1;
+        this.score = 0;
+        this.answeredQuestions = new Set();
+    }
 
-export function startQuiz(domaine, theme) {
-  // On filtre les questions selon le domaine et le thème
-  filteredQuestions = questionsData.filter(q => 
-    q["Domaines"] === domaine && q["Thèmes"] === theme
-  );
+    getNextQuestion() {
+        const availableQuestions = this.questions
+            .map((_, index) => index)
+            .filter(index => !this.answeredQuestions.has(index));
 
-  if (filteredQuestions.length > 0) {
+        if (availableQuestions.length === 0) return null;
+
+        const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+        this.currentQuestionIndex = availableQuestions[randomIndex];
+        this.answeredQuestions.add(this.currentQuestionIndex);
+        
+        return this.questions[this.currentQuestionIndex];
+    }
+
+    checkAnswer(answer) {
+        const isCorrect = this.getCurrentQuestion().correctAnswer === answer;
+        if (isCorrect) this.score++;
+        return isCorrect;
+    }
+
+    getCurrentQuestion() {
+        return this.questions[this.currentQuestionIndex];
+    }
+
+    getProgress() {
+        return {
+            current: this.answeredQuestions.size,
+            total: this.questions.length,
+            score: this.score
+        };
+    }
+
+    isComplete() {
+        return this.answeredQuestions.size >= this.questions.length;
+    }
+}
+
+let quizInstance = null;
+
+export function startQuiz(domain, theme, questions) {
+    const filteredQuestions = questions.filter(q => 
+        q.domain === domain && q.theme === theme
+    );
+
+    if (filteredQuestions.length === 0) {
+        throw new Error("Aucune question disponible pour cette combinaison domaine/thème");
+    }
+
+    quizInstance = new Quiz(filteredQuestions);
     showNextQuestion();
-  } else {
-    document.getElementById('quiz-container').innerHTML = 'Aucune question disponible.';
-  }
 }
 
 function showNextQuestion() {
-  if (filteredQuestions.length === 0) return;
+    if (!quizInstance || quizInstance.isComplete()) {
+        showFinalResults();
+        return;
+    }
 
-  const randomIndex = Math.floor(Math.random() * filteredQuestions.length);
-  currentQuestion = filteredQuestions[randomIndex];
-  renderQuestion(currentQuestion, handleAnswer);
+    const question = quizInstance.getNextQuestion();
+    if (!question) {
+        showFinalResults();
+        return;
+    }
+
+    renderQuestion(question, (selectedAnswer) => {
+        const isCorrect = quizInstance.checkAnswer(selectedAnswer);
+        showFeedback(isCorrect, question.correctAnswer);
+        
+        setTimeout(() => {
+            clearFeedback();
+            showNextQuestion();
+        }, 1500);
+    });
+
+    updateProgress();
 }
 
-function handleAnswer(choice) {
-  const correct = currentQuestion["Bonne réponse"];
-  const resultDiv = document.getElementById('result');
+function showFeedback(isCorrect, correctAnswer) {
+    const feedbackEl = document.getElementById('feedback');
+    feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+    
+    feedbackEl.innerHTML = isCorrect
+        ? '✅ Bonne réponse!'
+        : `❌ Mauvaise réponse. La bonne réponse était: <span class="correct-answer">${correctAnswer}</span>`;
+}
 
-  if (choice === correct) {
-    resultDiv.textContent = "Bonne réponse ✅";
-    resultDiv.style.color = "green";
-  } else {
-    resultDiv.textContent = `Mauvaise réponse ❌ (Bonne réponse : ${correct})`;
-    resultDiv.style.color = "red";
-  }
+function clearFeedback() {
+    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('feedback').innerHTML = '';
+}
 
-  setTimeout(() => {
-    resultDiv.textContent = "";
-    showNextQuestion();
-  }, 2000);
+function updateProgress() {
+    if (!quizInstance) return;
+    
+    const progress = quizInstance.getProgress();
+    document.getElementById('progress-counter').textContent = 
+        `${progress.current}/${progress.total}`;
+    document.getElementById('score-counter').textContent = 
+        `${progress.score}`;
+}
+
+function showFinalResults() {
+    if (!quizInstance) return;
+    
+    const progress = quizInstance.getProgress();
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = `
+        <div class="results-container">
+            <h2>Quiz terminé!</h2>
+            <div class="final-score">Score final: ${progress.score}/${progress.total}</div>
+            <div class="percentage">${Math.round((progress.score / progress.total) * 100)}% de bonnes réponses</div>
+            <button id="restart-btn" class="btn-primary">Recommencer</button>
+        </div>
+    `;
+    
+    document.getElementById('restart-btn').addEventListener('click', () => {
+        startQuiz(quizInstance.questions[0].domain, quizInstance.questions[0].theme, quizInstance.questions);
+    });
 }
