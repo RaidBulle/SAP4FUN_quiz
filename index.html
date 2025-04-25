@@ -1,38 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAP4FUN Quiz</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz SAP</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f8fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+    }
+
+    select, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: left;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .option-btn.selected {
+      background-color: #d0ebff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .progress-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      background: #eee;
+      border-radius: 8px;
+      margin-right: 5px;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .feedback.correct {
+      background-color: #d4edda;
+      border: 1px solid #28a745;
+    }
+
+    .feedback.incorrect {
+      background-color: #f8d7da;
+      border: 1px solid #dc3545;
+    }
+
+    .results-container {
+      text-align: center;
+    }
+
+    .final-score, .max-score {
+      font-size: 1.3rem;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-  <div class="sap4fun-logo"></div>
+  <div class="container">
+    <h1>Quiz SAP</h1>
 
-  <div id="config">
-    <h1>SAP4FUN QUIZ PRO</h1>
-    
-    <div class="select-group">
+    <!-- Choix du domaine et thème -->
+    <div id="config">
       <label for="domaine-select">Domaine :</label>
-      <select id="domaine-select">
-        <option value="">Sélectionnez un domaine</option>
-      </select>
-    </div>
-    
-    <div class="select-group">
+      <select id="domaine-select"></select>
+
       <label for="theme-select">Thème :</label>
-      <select id="theme-select">
-        <option value="">Sélectionnez d'abord un domaine</option>
-      </select>
+      <select id="theme-select"></select>
+
+      <button class="btn-primary" onclick="startQuiz()">Commencer le quiz</button>
     </div>
-    
-    <button id="start-btn" class="btn-primary">Commencer le quiz</button>
+
+    <!-- Interface du quiz -->
+    <div id="quiz-interface" class="hidden">
+      <div id="question-container"></div>
+    </div>
   </div>
-  
-  <div id="quiz-interface" class="hidden">
-    <div id="question-container"></div>
-  </div>
-  
-  <script src="js/script.js"></script>
+
+  <!-- Inclusion des scripts -->
+  <script src="js/dataLoader.js"></script>
+  <script src="js/quizManager.js"></script>
+  <script src="js/uiManager.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
