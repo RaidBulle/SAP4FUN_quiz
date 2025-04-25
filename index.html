@@ -11,8 +11,45 @@
 <body>
     <div id="app-container">
         <!-- Le contenu sera injecté par JavaScript -->
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p>Chargement...</p>
+        </div>
     </div>
 
-    <script type="module" src="js/main.js"></script>
+    <!-- Console de debug pour identifier les erreurs -->
+    <div id="debug-console" style="display: none; margin-top: 20px; padding: 10px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 5px;">
+        <h3>Console de débogage</h3>
+        <pre id="debug-output"></pre>
+    </div>
+
+    <script>
+        // Script de débogage pour identifier les erreurs
+        window.showDebug = function() {
+            document.getElementById('debug-console').style.display = 'block';
+        };
+        
+        window.addEventListener('error', function(event) {
+            const debugOutput = document.getElementById('debug-output');
+            if (debugOutput) {
+                debugOutput.textContent += `ERREUR: ${event.message}\n`;
+                document.getElementById('debug-console').style.display = 'block';
+            }
+        });
+        
+        // Ajouter un bouton pour afficher la console de débogage en cas de page blanche
+        setTimeout(function() {
+            if (document.getElementById('app-container').children.length <= 1) {
+                const debugBtn = document.createElement('button');
+                debugBtn.textContent = 'Afficher la console de débogage';
+                debugBtn.onclick = window.showDebug;
+                debugBtn.style.margin = '20px';
+                document.body.appendChild(debugBtn);
+            }
+        }, 5000);
+    </script>
+
+    <!-- Essayez d'abord avec le type module -->
+    <script type="module" src="js/main.js" onerror="document.getElementById('debug-output').textContent += 'Erreur de chargement du module main.js\n'; window.showDebug();"></script>
 </body>
 </html>
