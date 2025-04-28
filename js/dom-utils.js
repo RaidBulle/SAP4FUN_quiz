@@ -20,7 +20,7 @@ export function createElement(tag, attributes = {}, children = []) {
         }
     });
 
-    console.log(Children);
+    console.log(children);
     if (Array.isArray(children)) {
     children.forEach(child => {
         if (typeof child === 'string') {
