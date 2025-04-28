@@ -32,7 +32,7 @@ export function initUI(questions) {
         document.getElementById('quiz-container').classList.remove('hidden');
         
         // Ici vous devrez appeler votre fonction startQuiz
-        // startQuiz(selectedDomain, selectedTheme, questions);
+        startQuiz(selectedDomain, selectedTheme, questions);
     });
 }
 
