@@ -19,20 +19,27 @@ export function createElement(tag, attributes = {}, children = []) {
             element[key] = value;
         }
     });
-
-    console.log(children);
-    if (Array.isArray(children)) {
-    children.forEach(child => {
-        if (typeof child === 'string') {
-            element.appendChild(document.createTextNode(child));
-        } else if (child instanceof Node) {
-            element.appendChild(child);
+    
+    // Traiter un seul enfant non-tableau comme un cas spécial
+    if (!Array.isArray(children)) {
+        if (typeof children === 'string') {
+            element.appendChild(document.createTextNode(children));
+        } else if (children instanceof Node) {
+            element.appendChild(children);
+        } else {
+            console.warn("children n'est pas un type valide :", children);
         }
-    });
-} else {
-    console.warn("children n'est pas un tableau :", children);
-}
-
+    } else {
+        // Traitement normal pour un tableau d'enfants
+        children.forEach(child => {
+            if (typeof child === 'string') {
+                element.appendChild(document.createTextNode(child));
+            } else if (child instanceof Node) {
+                element.appendChild(child);
+            }
+        });
+    }
+    
     return element;
 }
 
