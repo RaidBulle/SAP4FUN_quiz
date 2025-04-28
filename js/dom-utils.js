@@ -20,6 +20,7 @@ export function createElement(tag, attributes = {}, children = []) {
         }
     });
 
+    console.log(Children);
     children.forEach(child => {
         if (typeof child === 'string') {
             element.appendChild(document.createTextNode(child));
