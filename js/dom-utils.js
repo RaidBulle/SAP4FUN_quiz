@@ -1,3 +1,12 @@
+export function clearElement(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.innerHTML = '';
+    } else {
+        console.warn(`Element with ID ${elementId} not found`);
+    }
+}
+
 export function createElement(tag, attributes = {}, children = []) {
     const element = document.createElement(tag);
     
@@ -14,7 +23,7 @@ export function createElement(tag, attributes = {}, children = []) {
     children.forEach(child => {
         if (typeof child === 'string') {
             element.appendChild(document.createTextNode(child));
-        } else {
+        } else if (child instanceof Node) {
             element.appendChild(child);
         }
     });
@@ -22,23 +31,16 @@ export function createElement(tag, attributes = {}, children = []) {
     return element;
 }
 
-export function clearElement(element) {
-    // Vérifier si l'élément existe avant d'essayer d'accéder à ses propriétés
-    if (element) {
-        while (element.firstChild) {
-            element.removeChild(element.firstChild);
-        }
-    }
-}
-
-export function disableElements(...elements) {
-    elements.forEach(el => {
+export function disableElements(...elementIds) {
+    elementIds.forEach(id => {
+        const el = document.getElementById(id);
         if (el) el.disabled = true;
     });
 }
 
-export function enableElements(...elements) {
-    elements.forEach(el => {
+export function enableElements(...elementIds) {
+    elementIds.forEach(id => {
+        const el = document.getElementById(id);
         if (el) el.disabled = false;
     });
 }
