@@ -1,14 +1,12 @@
-import { createElement, clearElement, disableElements, enableElements } from './dom-utils.js';
-import { startQuiz } from './quiz.js'; // Ajout de l'import manquant
+import { clearElement, createElement, disableElements, enableElements } from './dom-utils.js';
 
 export function initUI(questions) {
     const domainSelect = document.getElementById('domain-select');
     const themeSelect = document.getElementById('theme-select');
     const startBtn = document.getElementById('start-btn');
     
-    // Vérifier que les éléments existent
     if (!domainSelect || !themeSelect || !startBtn) {
-        console.error("Certains éléments de l'interface n'ont pas été trouvés");
+        console.error('Elements DOM manquants pour l\'initialisation de l\'UI');
         return;
     }
     
@@ -29,15 +27,19 @@ export function initUI(questions) {
             return;
         }
         
-        startQuiz(selectedDomain, selectedTheme, questions);
+        // Cache la configuration et montre le quiz
+        document.getElementById('config-container').classList.add('hidden');
+        document.getElementById('quiz-container').classList.remove('hidden');
+        
+        // Ici vous devrez appeler votre fonction startQuiz
+        // startQuiz(selectedDomain, selectedTheme, questions);
     });
 }
 
 function populateDomainDropdown(selectElement, questions) {
-    // Vérifier que l'élément existe
     if (!selectElement) return;
     
-    clearElement(selectElement);
+    selectElement.innerHTML = '';
     
     const domains = [...new Set(questions.map(q => q.domain))].sort();
     
@@ -57,10 +59,9 @@ function populateDomainDropdown(selectElement, questions) {
 }
 
 function populateThemeDropdown(selectElement, questions, domain) {
-    // Vérifier que l'élément existe
     if (!selectElement) return;
     
-    clearElement(selectElement);
+    selectElement.innerHTML = '';
     
     const themes = [...new Set(questions
         .filter(q => q.domain === domain)
@@ -81,5 +82,5 @@ function populateThemeDropdown(selectElement, questions, domain) {
         );
     });
     
-    enableElements(selectElement);
+    enableElements('theme-select');
 }
