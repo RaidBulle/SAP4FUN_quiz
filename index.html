@@ -4,52 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz SAP | SAP4FUN</title>
-    <meta name="description" content="Testez vos connaissances SAP avec ce quiz interactif">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="favicon.ico">
 </head>
 <body>
     <div id="app-container">
-        <!-- Le contenu sera injecté par JavaScript -->
-        <div class="loader-container">
-            <div class="loader"></div>
-            <p>Chargement...</p>
+        <!-- Structure de base chargée immédiatement -->
+        <div id="config-container" class="config-section">
+            <h1>Quiz SAP</h1>
+            <div class="config-form">
+                <div class="select-group">
+                    <label for="domain-select">Domaine:</label>
+                    <select id="domain-select"></select>
+                </div>
+                <div class="select-group">
+                    <label for="theme-select">Thème:</label>
+                    <select id="theme-select" disabled></select>
+                </div>
+                <button id="start-btn" class="btn-primary">Commencer le quiz</button>
+            </div>
+        </div>
+
+        <div id="quiz-container" class="hidden">
+            <div class="quiz-header">
+                <div id="progress-counter" class="badge">0/0</div>
+                <div id="score-counter" class="badge">Score: 0</div>
+            </div>
+            <div id="question-container"></div>
+            <div id="feedback" class="feedback"></div>
         </div>
     </div>
 
-    <!-- Console de debug pour identifier les erreurs -->
-    <div id="debug-console" style="display: none; margin-top: 20px; padding: 10px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 5px;">
-        <h3>Console de débogage</h3>
-        <pre id="debug-output"></pre>
-    </div>
-
-    <script>
-        // Script de débogage pour identifier les erreurs
-        window.showDebug = function() {
-            document.getElementById('debug-console').style.display = 'block';
-        };
-        
-        window.addEventListener('error', function(event) {
-            const debugOutput = document.getElementById('debug-output');
-            if (debugOutput) {
-                debugOutput.textContent += `ERREUR: ${event.message}\n`;
-                document.getElementById('debug-console').style.display = 'block';
-            }
-        });
-        
-        // Ajouter un bouton pour afficher la console de débogage en cas de page blanche
-        setTimeout(function() {
-            if (document.getElementById('app-container').children.length <= 1) {
-                const debugBtn = document.createElement('button');
-                debugBtn.textContent = 'Afficher la console de débogage';
-                debugBtn.onclick = window.showDebug;
-                debugBtn.style.margin = '20px';
-                document.body.appendChild(debugBtn);
-            }
-        }, 5000);
-    </script>
-
-    <!-- Essayez d'abord avec le type module -->
-    <script type="module" src="js/main.js" onerror="document.getElementById('debug-output').textContent += 'Erreur de chargement du module main.js\n'; window.showDebug();"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
