@@ -21,6 +21,7 @@ export function createElement(tag, attributes = {}, children = []) {
     });
 
     console.log(Children);
+    if (Array.isArray(children)) {
     children.forEach(child => {
         if (typeof child === 'string') {
             element.appendChild(document.createTextNode(child));
@@ -28,6 +29,9 @@ export function createElement(tag, attributes = {}, children = []) {
             element.appendChild(child);
         }
     });
+} else {
+    console.warn("children n'est pas un tableau :", children);
+}
 
     return element;
 }
