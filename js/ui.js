@@ -1,4 +1,5 @@
 import { clearElement, createElement, disableElements, enableElements } from './dom-utils.js';
+import { startQuiz } from './quiz.js'; // Ajout de l'import manquant
 
 export function initUI(questions) {
     const domainSelect = document.getElementById('domain-select');
@@ -31,7 +32,7 @@ export function initUI(questions) {
         document.getElementById('config-container').classList.add('hidden');
         document.getElementById('quiz-container').classList.remove('hidden');
         
-        // Ici vous devrez appeler votre fonction startQuiz
+        // Appel à la fonction startQuiz importée
         startQuiz(selectedDomain, selectedTheme, questions);
     });
 }
