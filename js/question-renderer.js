@@ -1,7 +1,22 @@
 import { createElement } from './dom-utils.js';
 
 export function renderQuestion(question, onAnswer) {
-    const container = document.getElementById('quiz-container');
+    // Utilisation de question-container au lieu de quiz-container directement
+    const container = document.getElementById('question-container');
+    
+    if (!container) {
+        // Fallback au quiz-container si question-container n'existe pas
+        const quizContainer = document.getElementById('quiz-container');
+        if (!quizContainer) return;
+        
+        // Créer un question-container s'il n'existe pas
+        const questionContainer = createElement('div', { id: 'question-container' });
+        quizContainer.appendChild(questionContainer);
+        
+        // Utiliser le nouveau conteneur
+        renderQuestion(question, onAnswer);
+        return;
+    }
     
     // Nettoyer le conteneur
     container.innerHTML = '';
